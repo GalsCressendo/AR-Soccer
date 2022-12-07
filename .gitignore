@@ -57,6 +57,7 @@ sysinfo.txt
 *.aab
 *.unitypackage
 *.app
+AR-Soccer/Build/AR-Soccer_BackUpThisFolder_ButDontShipItWithYourGame/
 
 # Crashlytics generated file
 crashlytics-build.properties
