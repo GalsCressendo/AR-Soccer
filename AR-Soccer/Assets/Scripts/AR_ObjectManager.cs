@@ -7,12 +7,12 @@ using UnityEngine.XR.ARSubsystems;
 public class AR_ObjectManager : MonoBehaviour
 {
     public GameObject objectToPlace;
-    private GameObject spawnObject;
+    public GameObject spawnObject;
     ARRaycastManager arRaycastManager;
     ARPlaneManager arPlaneManager;
     Vector2 touchPosition;
     static List<ARRaycastHit> hits = new List<ARRaycastHit>();
-    public Camera arCamera;
+    public AR_Toggle arToggle;
 
     //PinchToZoom
     Vector2 firstTouch;
@@ -20,6 +20,12 @@ public class AR_ObjectManager : MonoBehaviour
     float distanceCurrent;
     float distancePrevious;
     bool firstPinch = true;
+
+    //Store initial position
+    public Vector3 arPosition;
+    public Quaternion arRotation;
+    public Vector3 arScale;
+    
 
     private void Awake()
     {
@@ -29,21 +35,24 @@ public class AR_ObjectManager : MonoBehaviour
 
     private void Update()
     {
+        if (spawnObject == null && gameObject.activeInHierarchy)
+        {
+            SetPlaneTrackables(true);
+        }
+        else
+        {
+            SetPlaneTrackables(false);
+        }
+
         if (Input.touchCount > 0 && spawnObject == null)
         {
             touchPosition = Input.GetTouch(0).position;
 
-            if (arRaycastManager.Raycast(touchPosition, hits, TrackableType.Planes))
+            if (arRaycastManager.Raycast(touchPosition, hits, TrackableType.PlaneWithinPolygon))
             {
                 var hitPose = hits[0].pose;
                 spawnObject = Instantiate(objectToPlace, hitPose.position, hitPose.rotation);
-                foreach (var plane in arPlaneManager.trackables)
-                {
-                    plane.gameObject.SetActive(false);
-                }
-
-                arPlaneManager.enabled = false;
-
+                arToggle.fieldGameObject = spawnObject;
             }
         }
 
@@ -74,19 +83,32 @@ public class AR_ObjectManager : MonoBehaviour
         }
 
         //Detect touch on field
-        if(Input.touchCount == 1 && spawnObject!=null && Input.GetTouch(0).phase == TouchPhase.Began)
+        if (Input.touchCount == 1 && spawnObject != null && Input.GetTouch(0).phase == TouchPhase.Moved && spawnObject != null)
         {
-            Ray ray = arCamera.ScreenPointToRay(Input.GetTouch(0).position);
-            RaycastHit hit;
+            Touch touch = Input.GetTouch(0);
+            spawnObject.transform.Rotate(new Vector3(0, touch.deltaPosition.x, 0f));
+        }
+    }
 
-            if(Physics.Raycast(ray, out hit))
+    void SetPlaneTrackables(bool state)
+    {
+        if (state)
+        {
+            foreach (var plane in arPlaneManager.trackables)
             {
-                if(hit.transform.tag == "Field")
-                {
-                    var rotateField = hit.collider.GetComponent<RotateField>();
-                    rotateField.isTouched = !rotateField.isTouched;
-                }
+                plane.gameObject.SetActive(state);
             }
+
+            arPlaneManager.enabled = state;
+        }
+        else
+        {
+            foreach (var plane in arPlaneManager.trackables)
+            {
+                plane.gameObject.SetActive(false);
+            }
+
+            arPlaneManager.enabled = false;
         }
     }
 
