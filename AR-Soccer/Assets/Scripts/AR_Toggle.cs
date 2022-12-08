@@ -23,8 +23,6 @@ public class AR_Toggle : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log("[UNITY]" + fieldGameObject.transform.position);
-        Debug.Log("[UNITY]" + fieldGameObject.transform.rotation);
 
         if (slider.value == 0) //off state
         {
@@ -37,8 +35,6 @@ public class AR_Toggle : MonoBehaviour, IPointerClickHandler
 
             if (fieldGameObject != null)
             {
-                Debug.Log("[UNITY] FieldART transform position" + arObjectManager.arPosition);
-                Debug.Log("[UNITY] FieldART transform rotation" + arObjectManager.arRotation);
                 fieldGameObject.transform.SetPositionAndRotation(arObjectManager.arPosition, arObjectManager.arRotation);
                 fieldGameObject.transform.localScale = arObjectManager.arScale;
             }
