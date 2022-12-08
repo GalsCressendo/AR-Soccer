@@ -33,7 +33,7 @@ public class AR_ObjectManager : MonoBehaviour
         {
             touchPosition = Input.GetTouch(0).position;
 
-            if (arRaycastManager.Raycast(touchPosition, hits, TrackableType.Planes))
+            if (arRaycastManager.Raycast(touchPosition, hits, TrackableType.PlaneWithinPolygon))
             {
                 var hitPose = hits[0].pose;
                 spawnObject = Instantiate(objectToPlace, hitPose.position, hitPose.rotation);
@@ -74,19 +74,10 @@ public class AR_ObjectManager : MonoBehaviour
         }
 
         //Detect touch on field
-        if(Input.touchCount == 1 && spawnObject!=null && Input.GetTouch(0).phase == TouchPhase.Began)
+        if(Input.touchCount == 1 && spawnObject!=null && Input.GetTouch(0).phase == TouchPhase.Moved && spawnObject!=null)
         {
-            Ray ray = arCamera.ScreenPointToRay(Input.GetTouch(0).position);
-            RaycastHit hit;
-
-            if(Physics.Raycast(ray, out hit))
-            {
-                if(hit.transform.tag == "Field")
-                {
-                    var rotateField = hit.collider.GetComponent<RotateField>();
-                    rotateField.isTouched = !rotateField.isTouched;
-                }
-            }
+            Touch touch = Input.GetTouch(0);
+            spawnObject.transform.Rotate(new Vector3(0, touch.deltaPosition.x, 0f));
         }
     }
 
