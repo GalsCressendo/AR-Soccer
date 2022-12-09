@@ -1017,7 +1017,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1470199535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1281,7 +1281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d023129421c5694ca75c95b7f87fcf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectToPlace: {fileID: 1082388607026114512, guid: f80ad5236d9b9db42bfa8dfec48df2cf, type: 3}
+  objectToPlace: {fileID: 2822145648822466211, guid: dca390f50771e824fa6708748b386b7d, type: 3}
   spawnObject: {fileID: 0}
   arToggle: {fileID: 785150530}
   arPosition: {x: 0, y: 0, z: 0}

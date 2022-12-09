@@ -51,7 +51,7 @@ public class AR_ObjectManager : MonoBehaviour
             if (arRaycastManager.Raycast(touchPosition, hits, TrackableType.PlaneWithinPolygon))
             {
                 var hitPose = hits[0].pose;
-                spawnObject = Instantiate(objectToPlace, hitPose.position, hitPose.rotation);
+                spawnObject = Instantiate(objectToPlace, hitPose.position, objectToPlace.transform.rotation);
                 arToggle.fieldGameObject = spawnObject;
             }
         }
@@ -86,7 +86,7 @@ public class AR_ObjectManager : MonoBehaviour
         if (Input.touchCount == 1 && spawnObject != null && Input.GetTouch(0).phase == TouchPhase.Moved && spawnObject != null)
         {
             Touch touch = Input.GetTouch(0);
-            spawnObject.transform.Rotate(new Vector3(0, touch.deltaPosition.x, 0f));
+            spawnObject.transform.Rotate(new Vector3(0f, 0f, touch.deltaPosition.x));
         }
     }
 
