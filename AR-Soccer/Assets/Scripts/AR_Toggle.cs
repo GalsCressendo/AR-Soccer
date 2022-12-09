@@ -12,8 +12,8 @@ public class AR_Toggle : MonoBehaviour, IPointerClickHandler
 
     public GameObject fieldGameObject;
     Vector3 fieldPosition = new Vector3(0, 0, 10f);
-    Quaternion fieldRotation = Quaternion.Euler(new Vector3(-100, 0, 0));
-    Vector3 fieldScale = new Vector3(0.45f, 0, 0.9f);
+    Quaternion fieldRotation = Quaternion.Euler(new Vector3(32, 0, 0));
+    Vector3 fieldScale = Vector3.one;
 
 
     void Start()
