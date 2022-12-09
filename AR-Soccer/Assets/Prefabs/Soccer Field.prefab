@@ -662,7 +662,7 @@ GameObject:
   - component: {fileID: 2822145648179705932}
   m_Layer: 0
   m_Name: Goal_blue
-  m_TagString: Untagged
+  m_TagString: Goal_Blue
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -826,7 +826,7 @@ GameObject:
   - component: {fileID: 2822145648424525328}
   m_Layer: 0
   m_Name: Goal_red
-  m_TagString: Untagged
+  m_TagString: Goal_Red
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

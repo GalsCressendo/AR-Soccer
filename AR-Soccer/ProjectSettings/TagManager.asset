@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Field
   - Ball
+  - Goal_Red
+  - Goal_Blue
   layers:
   - Default
   - TransparentFX

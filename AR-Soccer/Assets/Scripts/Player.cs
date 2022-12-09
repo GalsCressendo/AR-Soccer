@@ -4,16 +4,20 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public const string BALL_TAG = "Ball";
+    public const string GOAL_TAG = "Goal_Red";
+
     float chaseBallSpeed = 1.5f;
-    float rotateSpeed = 700f;
+    float carryBallSpeed = 0.75f;
     public GameObject arrow;
     Transform ballTarget;
-    public const string BALL_TAG = "Ball";
+    Transform goalTarget;
     public bool haveBall;
 
     private void Awake()
     {
         ballTarget = GameObject.FindGameObjectWithTag(BALL_TAG).transform;
+        goalTarget = GameObject.FindGameObjectWithTag(GOAL_TAG).transform;
     }
 
     private void Update()
@@ -30,9 +34,7 @@ public class Player : MonoBehaviour
 
             arrow.SetActive(true);
 
-            var step = chaseBallSpeed * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, ballTarget.position, step);
-            transform.Rotate(new Vector3(0f, ballTarget.position.y, 0f));
+            MoveTowardsTarget(ballTarget, chaseBallSpeed);
 
             if (Vector3.Distance(transform.position, ballTarget.position) < 0.4f)
             {
@@ -42,6 +44,29 @@ public class Player : MonoBehaviour
                 ballTarget = null;
             }
         }
+
+        if (haveBall)
+        {
+            MoveTowardsTarget(goalTarget, carryBallSpeed);
+        }
        
+    }
+
+    void MoveTowardsTarget(Transform target, float speed)
+    {
+        var step = speed * Time.deltaTime;
+        transform.position = Vector3.MoveTowards(transform.position, target.position, step);
+
+        //TODO: ROTATE PLAYERS
+        //transform.Rotate(new Vector3(0f, target.position.y, 0f));
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == GOAL_TAG)
+        {
+            Destroy(gameObject);
+            //TO DO: ADD SCORE
+        }
     }
 }
