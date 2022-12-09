@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     float chaseBallSpeed = 1.5f;
+    float rotateSpeed = 700f;
     public GameObject arrow;
     Transform ballTarget;
     public const string BALL_TAG = "Ball";
@@ -31,6 +32,7 @@ public class Player : MonoBehaviour
 
             var step = chaseBallSpeed * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, ballTarget.position, step);
+            transform.Rotate(new Vector3(0f, ballTarget.position.y, 0f));
 
             if (Vector3.Distance(transform.position, ballTarget.position) < 0.4f)
             {
