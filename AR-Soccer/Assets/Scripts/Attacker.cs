@@ -5,6 +5,7 @@ using UnityEngine;
 public class Attacker : MonoBehaviour
 {
     const string BALL_TAG = "Ball";
+    const string GAME_MANAGER_TAG = "GameManager";
     public UnitAttributes attributes;
 
     const float chaseBallSpeed = 1.5f;
@@ -38,62 +39,65 @@ public class Attacker : MonoBehaviour
 
     private void Update()
     {
-        if (isSpawned)
+        if (GameObject.FindGameObjectWithTag(GAME_MANAGER_TAG).GetComponent<GameManager>().gameIsActive)
         {
-            material.color = new Color(activeColor.r, activeColor.g, activeColor.b, 0.5f);
-        }
-        else
-        {
-            if (ballTarget != null && !isCaptured)
+            if (isSpawned)
             {
-                if (ballTarget.GetComponent<Ball>().isAttached)
-                {
-                    ballTarget = null;
-                    return;
-                }
-
-                MoveTowardsTarget(ballTarget, chaseBallSpeed);
-
-                if (Vector3.Distance(transform.position, ballTarget.position) < 0.4f)
-                {
-                    ballTarget.transform.SetParent(gameObject.transform, true);
-                    haveBall = true;
-                    ballTarget.GetComponent<Ball>().SetAttached();
-                    ballTarget = null;
-                }
+                material.color = new Color(activeColor.r, activeColor.g, activeColor.b, 0.5f);
             }
-
-            //if not carrying a ball
-            if (ballTarget == null && !haveBall && !isCaptured &!isReceiving)
+            else
             {
-                if (GameObject.FindGameObjectWithTag(BALL_TAG) != null)
+                if (ballTarget != null && !isCaptured)
                 {
-                    if (!GameObject.FindGameObjectWithTag(BALL_TAG).GetComponent<Ball>().isAttached)
+                    if (ballTarget.GetComponent<Ball>().isAttached)
                     {
-                        ballTarget = GameObject.FindGameObjectWithTag(BALL_TAG).transform;
+                        ballTarget = null;
                         return;
                     }
-                   
+
+                    MoveTowardsTarget(ballTarget, chaseBallSpeed);
+
+                    if (Vector3.Distance(transform.position, ballTarget.position) < 0.4f)
+                    {
+                        ballTarget.transform.SetParent(gameObject.transform, true);
+                        haveBall = true;
+                        ballTarget.GetComponent<Ball>().SetAttached();
+                        ballTarget = null;
+                    }
                 }
 
-                transform.position += new Vector3(0, 0, carryBallSpeed) * Time.deltaTime;
+                //if not carrying a ball
+                if (ballTarget == null && !haveBall && !isCaptured & !isReceiving)
+                {
+                    if (GameObject.FindGameObjectWithTag(BALL_TAG) != null)
+                    {
+                        if (!GameObject.FindGameObjectWithTag(BALL_TAG).GetComponent<Ball>().isAttached)
+                        {
+                            ballTarget = GameObject.FindGameObjectWithTag(BALL_TAG).transform;
+                            return;
+                        }
+
+                    }
+
+                    transform.position += new Vector3(0, 0, carryBallSpeed) * Time.deltaTime;
+                }
+
+
+                //If the player carry a ball
+                if (haveBall)
+                {
+                    highlight.SetActive(true);
+                    MoveTowardsTarget(goalTarget, carryBallSpeed);
+                    material.color = activeColor;
+                }
+
+                //if player is captured
+                if (isCaptured)
+                {
+                    Invoke("ReactiveAfterCaptured", reactiveTime);
+                }
+
             }
-
-
-            //If the player carry a ball
-            if (haveBall)
-            {
-                highlight.SetActive(true);
-                MoveTowardsTarget(goalTarget, carryBallSpeed);
-                material.color = activeColor;
-            }
-
-            //if player is captured
-            if (isCaptured)
-            {
-                Invoke("ReactiveAfterCaptured", reactiveTime);
-            }
-
         }
        
     }

@@ -5,9 +5,10 @@ using TMPro;
 
 public class Timer : MonoBehaviour
 {
-    float matchTime = 140;
+    float matchTime = 11;
     float timeRemaining;
     public bool isTicking;
+    public GameManager gameManager;
     [SerializeField] TextMeshProUGUI countdownText;
 
     private void Start()
@@ -30,11 +31,9 @@ public class Timer : MonoBehaviour
             }
             else
             {
-                Debug.Log("TIME's OUT");
                 timeRemaining = 0;
                 isTicking = false;
-    
-                //Switch State
+                gameManager.SwitchGameState();
             }
         }
         
@@ -50,6 +49,7 @@ public class Timer : MonoBehaviour
 
     public void ResetTime()
     {
+        isTicking = true;
         timeRemaining = matchTime;
         countdownText.color = Color.white;
     }

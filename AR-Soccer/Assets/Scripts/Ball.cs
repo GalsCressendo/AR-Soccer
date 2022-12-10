@@ -38,11 +38,4 @@ public class Ball : MonoBehaviour
     {
         this.target = target;
     }
-
-    public void OnDestroy()
-    {
-        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().SpawnBall();
-    }
-
-
 }
