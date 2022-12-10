@@ -22,6 +22,7 @@ public class Attacker : MonoBehaviour
     public bool haveBall;
     public bool isCaptured;
     bool isSpawned = false;
+    public bool isReceiving = false;
 
     public UnitContainer unitContainer;
 
@@ -63,7 +64,7 @@ public class Attacker : MonoBehaviour
             }
 
             //if not carrying a ball
-            if (ballTarget == null && !haveBall && !isCaptured)
+            if (ballTarget == null && !haveBall && !isCaptured &!isReceiving)
             {
                 if (GameObject.FindGameObjectWithTag(BALL_TAG) != null)
                 {
@@ -92,6 +93,7 @@ public class Attacker : MonoBehaviour
             {
                 Invoke("ReactiveAfterCaptured", reactiveTime);
             }
+
         }
        
     }
@@ -134,13 +136,18 @@ public class Attacker : MonoBehaviour
                 }
             }
 
+            ballTarget = GameObject.FindGameObjectWithTag(BALL_TAG).GetComponent<Transform>();
+
             //if there is any other unit to pass the ball
             if (nearestTransform != null)
             {
-                ballTarget = GameObject.FindGameObjectWithTag(BALL_TAG).GetComponent<Transform>();
+                nearestTransform.GetComponent<Attacker>().isReceiving = true;
                 ballTarget.GetComponent<Ball>().PassBallToNearest(nearestTransform);
             }
-
+            else
+            {
+                Destroy(ballTarget.gameObject);
+            }
 
             ballTarget = null;
             haveBall = false;
@@ -158,6 +165,11 @@ public class Attacker : MonoBehaviour
     {
         material.color = activeColor;
         isSpawned = false;
+    }
+
+    private void OnDestroy()
+    {
+        unitContainer.GetComponent<UnitContainer>().units.Remove(gameObject);
     }
 
 

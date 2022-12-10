@@ -16,6 +16,7 @@ TagManager:
   - Enemy
   - EnemyArea
   - PlayerArea
+  - GameManager
   layers:
   - Default
   - TransparentFX

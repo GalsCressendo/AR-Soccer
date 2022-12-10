@@ -111,7 +111,7 @@ public class GameManager : MonoBehaviour
         spawned.GetComponent<Defender>().ReactiveAfterSpawn();
     }
 
-    private void SpawnBall()
+    public void SpawnBall()
     {
         if (state == GameState.PLAYER_ATTACK_STATE)
         {

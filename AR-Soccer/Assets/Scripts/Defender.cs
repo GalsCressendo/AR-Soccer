@@ -48,6 +48,10 @@ public class Defender : MonoBehaviour
                     isActive = false;
                     detection.SetActive(false);
                 }
+                else if (!attacker.gameObject.activeSelf) //if targeted attacker already reach goal before captured
+                {
+                    Invoke("ReturnPosition", inactiveDuration);
+                }
             }
 
             if (!isActive)
