@@ -8,6 +8,9 @@ TagManager:
   - Ball
   - Goal_Red
   - Goal_Blue
+  - Fence_Red
+  - Fence_Blue
+  - Detection
   layers:
   - Default
   - TransparentFX
