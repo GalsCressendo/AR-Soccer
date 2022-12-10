@@ -23,6 +23,11 @@ public class Ball : MonoBehaviour
             if (Vector3.Distance(transform.position, target.position) < 0.4f)
             {
                 transform.SetParent(target.transform, true);
+                if(target.tag == "Player")
+                {
+                    target.GetComponent<PlayerAttack>().haveBall = true;
+                    target.GetComponent<PlayerAttack>().highlight.SetActive(true);
+                }
                 target = null;
             }
         }
