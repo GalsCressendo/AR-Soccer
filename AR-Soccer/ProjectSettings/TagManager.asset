@@ -11,6 +11,9 @@ TagManager:
   - Fence_Red
   - Fence_Blue
   - Detection
+  - Attacker
+  - Defender
+  - Enemy
   layers:
   - Default
   - TransparentFX

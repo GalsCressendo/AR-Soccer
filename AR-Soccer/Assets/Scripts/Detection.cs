@@ -6,16 +6,13 @@ public class Detection : MonoBehaviour
 {
     public GameObject unit;
 
-    const string PLAYER_TAG = "Player";
-    const string ENEMY_TAG = "Enemy";
+    const string ATTACKER_TAG = "Attacker";
 
     private void OnTriggerEnter(Collider other)
     {
-        switch (other.tag)
+        if(other.tag == ATTACKER_TAG)
         {
-            case PLAYER_TAG:
-                unit.GetComponent<EnemyDefense>().ChaseAttacker(other.transform);
-                break;
+            unit.GetComponent<Defender>().ChaseAttacker(other.transform);
         }
     }
 }

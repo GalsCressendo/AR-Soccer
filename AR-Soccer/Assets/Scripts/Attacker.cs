@@ -2,12 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAttack : MonoBehaviour
+public class Attacker : MonoBehaviour
 {
     const string BALL_TAG = "Ball";
-    const string GOAL_TAG = "Goal_Red";
-    const string FENCE_TAG = "Fence_Red";
     const string DETECTION_TAG = "Detection";
+    public UnitAttributes attributes;
 
     const float chaseBallSpeed = 1.5f;
     const float carryBallSpeed = 0.75f;
@@ -29,12 +28,13 @@ public class PlayerAttack : MonoBehaviour
     private void Awake()
     {
         ballTarget = GameObject.FindGameObjectWithTag(BALL_TAG).transform;
-        goalTarget = GameObject.FindGameObjectWithTag(GOAL_TAG).transform;
+        goalTarget = GameObject.FindGameObjectWithTag(attributes.GOAL_TAG).transform;
 
         playerContainer = transform.parent.GetComponent<PlayerContainer>();
 
         material = GetComponent<MeshRenderer>().material;
         activeColor = material.color;
+
     }
 
     private void Update()
@@ -92,16 +92,14 @@ public class PlayerAttack : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        switch (other.tag)
+        if(other.tag == attributes.GOAL_TAG)
         {
-            case GOAL_TAG:
-                Destroy(gameObject);
-                //ADD SCORE
-                break;
-            case FENCE_TAG:
-                Destroy(gameObject);
-                break;
-
+            Destroy(gameObject);
+            //ADD SCORE
+        }
+        else if(other.tag == attributes.FENCE_TAG)
+        {
+            Destroy(gameObject);
         }
     }
 
