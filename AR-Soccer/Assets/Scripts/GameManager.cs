@@ -68,15 +68,11 @@ public class GameManager : MonoBehaviour
 
                         if(state == GameState.PLAYER_ATTACK_STATE)
                         {
-                            spawnedObject.tag = ATTACKER_TAG;
-                            spawnedObject.GetComponent<Attacker>().enabled = true;
-                            spawnedObject.GetComponent<Defender>().enabled = false;
+                            SetUnitAttackState(spawnedObject, true);
                         }
                         else
                         {
-                            spawnedObject.tag = DEFENDER_TAG;
-                            spawnedObject.GetComponent<Attacker>().enabled = false;
-                            spawnedObject.GetComponent<Defender>().enabled = true;
+                            SetUnitAttackState(spawnedObject, false);
                         }
                     }
                     else if (hit.transform.tag == ENEMY_AREA_TAG)
@@ -86,17 +82,13 @@ public class GameManager : MonoBehaviour
                         enemyContainer.GetComponent<UnitContainer>().units.Add(spawnedObject);
                         spawnedObject.GetComponent<Attacker>().unitContainer = enemyContainer.GetComponent<UnitContainer>();
 
-                        if (state == GameState.PLAYER_DEFENSE_STATE)
+                        if(state == GameState.PLAYER_DEFENSE_STATE)
                         {
-                            spawnedObject.tag = ATTACKER_TAG;
-                            spawnedObject.GetComponent<Attacker>().enabled = true;
-                            spawnedObject.GetComponent<Defender>().enabled = false;
+                            SetUnitAttackState(spawnedObject, true);
                         }
                         else
                         {
-                            spawnedObject.tag = DEFENDER_TAG;
-                            spawnedObject.GetComponent<Attacker>().enabled = false;
-                            spawnedObject.GetComponent<Defender>().enabled = true;
+                            SetUnitAttackState(spawnedObject, false);
                         }
                     }
 
@@ -234,6 +226,22 @@ public class GameManager : MonoBehaviour
         foreach (GameObject obj in enemyContainer.GetComponent<UnitContainer>().units)
         {
             Destroy(obj);
+        }
+    }
+
+    private void SetUnitAttackState(GameObject unit, bool isAttacking)
+    {
+        if(isAttacking)
+        {
+            unit.tag = ATTACKER_TAG;
+            unit.GetComponent<Attacker>().enabled = true;
+            unit.GetComponent<Defender>().enabled = false;
+        }
+        else
+        {
+            unit.tag = DEFENDER_TAG;
+            unit.GetComponent<Attacker>().enabled = false;
+            unit.GetComponent<Defender>().enabled = true;
         }
     }
 }

@@ -6,6 +6,8 @@ public class Attacker : MonoBehaviour
 {
     const string BALL_TAG = "Ball";
     const string GAME_MANAGER_TAG = "GameManager";
+    const string PLAYER_TAG = "Player";
+    const string ENEMY_TAG = "Enemy";
     public UnitAttributes attributes;
 
     const float chaseBallSpeed = 1.5f;
@@ -79,7 +81,15 @@ public class Attacker : MonoBehaviour
 
                     }
 
-                    transform.position += new Vector3(0, 0, carryBallSpeed) * Time.deltaTime;
+                    if(gameObject.transform.parent.tag == PLAYER_TAG)
+                    {
+                        transform.position += new Vector3(0, 0, carryBallSpeed) * Time.deltaTime;
+                    }
+                    else
+                    {
+                        transform.position += new Vector3(0, 0, -carryBallSpeed) * Time.deltaTime;
+                    }
+
                 }
 
 
