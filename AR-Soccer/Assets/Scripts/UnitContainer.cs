@@ -11,7 +11,7 @@ public class UnitContainer : MonoBehaviour
         List<Transform> unitTransform = new List<Transform>();
         foreach(GameObject p in units)
         {
-            if(p.name == exclude.name)
+            if(p.transform == exclude)
             {
                 continue;
             }

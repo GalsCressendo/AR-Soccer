@@ -62,9 +62,19 @@ public class Attacker : MonoBehaviour
                 }
             }
 
-            //if inactive
+            //if not carrying a ball
             if (ballTarget == null && !haveBall && !isCaptured)
             {
+                if (GameObject.FindGameObjectWithTag(BALL_TAG) != null)
+                {
+                    if (!GameObject.FindGameObjectWithTag(BALL_TAG).GetComponent<Ball>().isAttached)
+                    {
+                        ballTarget = GameObject.FindGameObjectWithTag(BALL_TAG).transform;
+                        return;
+                    }
+                   
+                }
+
                 transform.position += new Vector3(0, 0, carryBallSpeed) * Time.deltaTime;
             }
 
@@ -111,7 +121,6 @@ public class Attacker : MonoBehaviour
         {
             isCaptured = true;
             highlight.SetActive(false);
-            haveBall = false;
             material.color = new Color(activeColor.r, activeColor.g, activeColor.b, 0.5f);
 
             var nearestDistance = float.MaxValue;
@@ -125,10 +134,16 @@ public class Attacker : MonoBehaviour
                 }
             }
 
-            ballTarget = GameObject.FindGameObjectWithTag(BALL_TAG).GetComponent<Transform>();
-            ballTarget.GetComponent<Ball>().PassBallToNearest(nearestTransform);
+            //if there is any other unit to pass the ball
+            if (nearestTransform != null)
+            {
+                ballTarget = GameObject.FindGameObjectWithTag(BALL_TAG).GetComponent<Transform>();
+                ballTarget.GetComponent<Ball>().PassBallToNearest(nearestTransform);
+            }
+
 
             ballTarget = null;
+            haveBall = false;
         }
 
     }

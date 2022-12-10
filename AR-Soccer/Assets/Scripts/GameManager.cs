@@ -54,7 +54,6 @@ public class GameManager : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit))
             {
-                Debug.Log(hit.transform.tag);
                 if(hit.transform.tag == PLAYER_AREA_TAG)
                 {
                     spawnedObject = Instantiate(playerPrefab, hit.point, playerPrefab.transform.rotation);
@@ -103,7 +102,6 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(SPAWN_TIME);
         spawned.GetComponent<Attacker>().ReactiveAfterSpawn();
-        Debug.Log("Attacker activated");
 
     }
 
@@ -111,7 +109,6 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(SPAWN_TIME);
         spawned.GetComponent<Defender>().ReactiveAfterSpawn();
-        Debug.Log("Defender activated");
     }
 
     private void SpawnBall()
