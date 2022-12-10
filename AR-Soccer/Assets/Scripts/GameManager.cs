@@ -6,6 +6,9 @@ public class GameManager : MonoBehaviour
 {
     const string PLAYER_AREA_TAG = "PlayerArea";
     const string ENEMY_AREA_TAG = "EnemyArea";
+    const string ATTACKER_TAG = "Attacker";
+    const string DEFENDER_TAG = "Defender";
+    const float SPAWN_TIME = 0.5f;
 
     public List<Camera> cameras;
 
@@ -26,8 +29,8 @@ public class GameManager : MonoBehaviour
             }
 
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit; 
-            GameObject spawnedObject;
+            RaycastHit hit;
+            GameObject spawnedObject = null;
 
             if (Physics.Raycast(ray, out hit))
             {
@@ -46,6 +49,18 @@ public class GameManager : MonoBehaviour
                     enemyContainer.GetComponent<UnitContainer>().units.Add(spawnedObject);
                     spawnedObject.GetComponent<Attacker>().unitContainer = enemyContainer.GetComponent<UnitContainer>();
                 }
+
+                if (spawnedObject != null)
+                {
+                    if(spawnedObject.tag == ATTACKER_TAG)
+                    {
+                        StartCoroutine(ReactiveAttackerAfterSpawn(spawnedObject));
+                    }
+                    else if (spawnedObject.tag == DEFENDER_TAG)
+                    {
+                        StartCoroutine(ReactiveDefenderAfterSpawn(spawnedObject));
+                    }
+                }
             }       
             
         }
@@ -62,5 +77,20 @@ public class GameManager : MonoBehaviour
         }
 
         return null;
+    }
+
+    private IEnumerator ReactiveAttackerAfterSpawn(GameObject spawned)
+    {
+        yield return new WaitForSeconds(SPAWN_TIME);
+        spawned.GetComponent<Attacker>().ReactiveAfterSpawn();
+        Debug.Log("Attacker activated");
+
+    }
+
+    private IEnumerator ReactiveDefenderAfterSpawn(GameObject spawned)
+    {
+        yield return new WaitForSeconds(SPAWN_TIME);
+        spawned.GetComponent<Defender>().ReactiveAfterSpawn();
+        Debug.Log("Defender activated");
     }
 }

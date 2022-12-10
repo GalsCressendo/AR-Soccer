@@ -21,6 +21,7 @@ public class Attacker : MonoBehaviour
 
     public bool haveBall;
     public bool isCaptured;
+    bool isSpawned = false;
 
     public UnitContainer unitContainer;
 
@@ -31,48 +32,56 @@ public class Attacker : MonoBehaviour
         material = GetComponent<MeshRenderer>().material;
         activeColor = material.color;
 
+        isSpawned = true;
     }
 
     private void Update()
     {
-        if (ballTarget != null && !isCaptured)
+        if (isSpawned)
         {
-            if (ballTarget.GetComponent<Ball>().isAttached)
+            material.color = new Color(activeColor.r, activeColor.g, activeColor.b, 0.5f);
+        }
+        else
+        {
+            if (ballTarget != null && !isCaptured)
             {
-                ballTarget = null;
-                return;
+                if (ballTarget.GetComponent<Ball>().isAttached)
+                {
+                    ballTarget = null;
+                    return;
+                }
+
+                MoveTowardsTarget(ballTarget, chaseBallSpeed);
+
+                if (Vector3.Distance(transform.position, ballTarget.position) < 0.4f)
+                {
+                    ballTarget.transform.SetParent(gameObject.transform, true);
+                    haveBall = true;
+                    ballTarget.GetComponent<Ball>().SetAttached();
+                    ballTarget = null;
+                }
             }
 
-            MoveTowardsTarget(ballTarget, chaseBallSpeed);
-
-            if (Vector3.Distance(transform.position, ballTarget.position) < 0.4f)
+            //if inactive
+            if (ballTarget == null && !haveBall && !isCaptured)
             {
-                ballTarget.transform.SetParent(gameObject.transform, true);
-                haveBall = true;
-                ballTarget.GetComponent<Ball>().SetAttached();
-                ballTarget = null;
+                transform.position += new Vector3(0, 0, carryBallSpeed) * Time.deltaTime;
             }
-        }
-
-        //if inactive
-        if (ballTarget == null && !haveBall  && !isCaptured)
-        {
-            transform.position += new Vector3(0, 0, carryBallSpeed) * Time.deltaTime;
-        }
 
 
-        //If the player carry a ball
-        if (haveBall)
-        {
-            highlight.SetActive(true);
-            MoveTowardsTarget(goalTarget, carryBallSpeed);
-            material.color = activeColor;
-        }
+            //If the player carry a ball
+            if (haveBall)
+            {
+                highlight.SetActive(true);
+                MoveTowardsTarget(goalTarget, carryBallSpeed);
+                material.color = activeColor;
+            }
 
-        //if player is captured
-        if (isCaptured)
-        {
-            Invoke("ReactiveAfterCaptured", reactiveTime);
+            //if player is captured
+            if (isCaptured)
+            {
+                Invoke("ReactiveAfterCaptured", reactiveTime);
+            }
         }
        
     }
@@ -81,9 +90,6 @@ public class Attacker : MonoBehaviour
     {
         var step = speed * Time.deltaTime;
         transform.position = Vector3.MoveTowards(transform.position, target.position, step);
-
-        //TODO: ROTATE PLAYERS
-        //transform.rotation = Quaternion.RotateTowards(transform.rotation, target.rotation, step);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -131,6 +137,12 @@ public class Attacker : MonoBehaviour
     {
         material.color = activeColor;
         isCaptured = false;
+    }
+
+    public void ReactiveAfterSpawn()
+    {
+        material.color = activeColor;
+        isSpawned = false;
     }
 
 

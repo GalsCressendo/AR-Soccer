@@ -2694,6 +2694,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1735336846}
+  - component: {fileID: 1735336847}
   m_Layer: 0
   m_Name: EnemyUnits
   m_TagString: Enemy
@@ -2716,6 +2717,19 @@ Transform:
   m_Father: {fileID: 2095442598}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1735336847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1735336845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 267addb6da7051747b8b76fb6a56a7f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  units: []
 --- !u!1 &1754615910
 GameObject:
   m_ObjectHideFlags: 0
@@ -3199,10 +3213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 267addb6da7051747b8b76fb6a56a7f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  players:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  units: []
 --- !u!1 &2132360269
 GameObject:
   m_ObjectHideFlags: 0

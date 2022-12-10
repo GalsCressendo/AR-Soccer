@@ -19,7 +19,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2846910554433474136
 Transform:
   m_ObjectHideFlags: 0
@@ -246,6 +246,7 @@ MonoBehaviour:
   highlight: {fileID: 7068788918791210779}
   haveBall: 0
   isCaptured: 0
+  unitContainer: {fileID: 0}
 --- !u!114 &2846910553966733394
 MonoBehaviour:
   m_ObjectHideFlags: 0
