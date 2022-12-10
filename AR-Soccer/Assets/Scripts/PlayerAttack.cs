@@ -101,14 +101,11 @@ public class PlayerAttack : MonoBehaviour
             case FENCE_TAG:
                 Destroy(gameObject);
                 break;
-            case DETECTION_TAG:
-                PassBall();
-                break;
 
         }
     }
 
-    private void PassBall()
+    public void PassBall()
     {
         if (haveBall)
         {
