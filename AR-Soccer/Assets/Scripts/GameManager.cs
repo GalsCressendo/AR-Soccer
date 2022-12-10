@@ -65,6 +65,19 @@ public class GameManager : MonoBehaviour
                         spawnedObject.transform.SetParent(playerContainer.transform, true);
                         playerContainer.GetComponent<UnitContainer>().units.Add(spawnedObject);
                         spawnedObject.GetComponent<Attacker>().unitContainer = playerContainer.GetComponent<UnitContainer>();
+
+                        if(state == GameState.PLAYER_ATTACK_STATE)
+                        {
+                            spawnedObject.tag = ATTACKER_TAG;
+                            spawnedObject.GetComponent<Attacker>().enabled = true;
+                            spawnedObject.GetComponent<Defender>().enabled = false;
+                        }
+                        else
+                        {
+                            spawnedObject.tag = DEFENDER_TAG;
+                            spawnedObject.GetComponent<Attacker>().enabled = false;
+                            spawnedObject.GetComponent<Defender>().enabled = true;
+                        }
                     }
                     else if (hit.transform.tag == ENEMY_AREA_TAG)
                     {
@@ -72,6 +85,19 @@ public class GameManager : MonoBehaviour
                         spawnedObject.transform.SetParent(enemyContainer.transform, true);
                         enemyContainer.GetComponent<UnitContainer>().units.Add(spawnedObject);
                         spawnedObject.GetComponent<Attacker>().unitContainer = enemyContainer.GetComponent<UnitContainer>();
+
+                        if (state == GameState.PLAYER_DEFENSE_STATE)
+                        {
+                            spawnedObject.tag = ATTACKER_TAG;
+                            spawnedObject.GetComponent<Attacker>().enabled = true;
+                            spawnedObject.GetComponent<Defender>().enabled = false;
+                        }
+                        else
+                        {
+                            spawnedObject.tag = DEFENDER_TAG;
+                            spawnedObject.GetComponent<Attacker>().enabled = false;
+                            spawnedObject.GetComponent<Defender>().enabled = true;
+                        }
                     }
 
                     if (spawnedObject != null)
