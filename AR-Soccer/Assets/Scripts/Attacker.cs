@@ -5,7 +5,6 @@ using UnityEngine;
 public class Attacker : MonoBehaviour
 {
     const string BALL_TAG = "Ball";
-    const string DETECTION_TAG = "Detection";
     public UnitAttributes attributes;
 
     const float chaseBallSpeed = 1.5f;
@@ -23,14 +22,11 @@ public class Attacker : MonoBehaviour
     public bool haveBall;
     public bool isCaptured;
 
-    PlayerContainer playerContainer;
+    public UnitContainer unitContainer;
 
     private void Awake()
     {
-        ballTarget = GameObject.FindGameObjectWithTag(BALL_TAG).transform;
         goalTarget = GameObject.FindGameObjectWithTag(attributes.GOAL_TAG).transform;
-
-        playerContainer = transform.parent.GetComponent<PlayerContainer>();
 
         material = GetComponent<MeshRenderer>().material;
         activeColor = material.color;
@@ -114,7 +110,7 @@ public class Attacker : MonoBehaviour
 
             var nearestDistance = float.MaxValue;
             Transform nearestTransform = null;
-            foreach(Transform t in playerContainer.GetAllPlayersTransform(gameObject.transform))
+            foreach(Transform t in unitContainer.GetAllUnitTransform(gameObject.transform))
             {
                 if(Vector3.Distance(transform.position, t.position) < nearestDistance)
                 {
