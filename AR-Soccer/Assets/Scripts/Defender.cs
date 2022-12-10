@@ -2,10 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyDefense : MonoBehaviour
+public class Defender : MonoBehaviour
 {
-    const string BALL_TAG = "Ball";
-
     const float chaseAttackerSpeed = 1.0f;
     const float returnSpeed = 2.0f;
 
@@ -36,7 +34,7 @@ public class EnemyDefense : MonoBehaviour
 
             if (Vector3.Distance(transform.position, attacker.position) < 0.001f)
             {
-                attacker.GetComponent<PlayerAttack>().PassBall();
+                attacker.GetComponent<Attacker>().PassBall();
                 attacker = null;
                 isActive = false;
                 detection.SetActive(false);
@@ -61,7 +59,7 @@ public class EnemyDefense : MonoBehaviour
     {
         if (isActive)
         {
-            if (attacker.GetComponent<PlayerAttack>().haveBall)
+            if (attacker.GetComponent<Attacker>().haveBall)
             {
                 this.attacker = attacker;
             }

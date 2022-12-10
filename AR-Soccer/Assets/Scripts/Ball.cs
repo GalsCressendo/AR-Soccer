@@ -25,8 +25,8 @@ public class Ball : MonoBehaviour
                 transform.SetParent(target.transform, true);
                 if(target.tag == "Player")
                 {
-                    target.GetComponent<PlayerAttack>().haveBall = true;
-                    target.GetComponent<PlayerAttack>().highlight.SetActive(true);
+                    target.GetComponent<Attacker>().haveBall = true;
+                    target.GetComponent<Attacker>().highlight.SetActive(true);
                 }
                 target = null;
             }
