@@ -23,10 +23,11 @@ public class Ball : MonoBehaviour
             if (Vector3.Distance(transform.position, target.position) < 0.4f)
             {
                 transform.SetParent(target.transform, true);
-                if(target.tag == "Player")
+                if(target.tag == "Attacker")
                 {
                     target.GetComponent<Attacker>().haveBall = true;
                     target.GetComponent<Attacker>().highlight.SetActive(true);
+                    target.GetComponent<Attacker>().isReceiving = false;
                 }
                 target = null;
             }
@@ -36,6 +37,11 @@ public class Ball : MonoBehaviour
     public void PassBallToNearest(Transform target)
     {
         this.target = target;
+    }
+
+    public void OnDestroy()
+    {
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().SpawnBall();
     }
 
 
