@@ -7,6 +7,7 @@ public class Defender : MonoBehaviour
 
     const float chaseAttackerSpeed = 1.0f;
     const float returnSpeed = 2.0f;
+    const float inactiveDuration = 4.0f;
 
     bool isActive = true;
     bool isSpawned = false;
@@ -52,14 +53,8 @@ public class Defender : MonoBehaviour
             if (!isActive)
             {
                 material.color = new Color(initialColor.r, initialColor.g, initialColor.b, 0.5f);
-
-                var step = returnSpeed * Time.deltaTime;
-                transform.position = Vector3.MoveTowards(transform.position, initialPosition, step);
-
-                if (Vector3.Distance(transform.position, initialPosition) < 0.001f)
-                {
-                    SetActive();
-                }
+                Invoke("ReturnPosition", inactiveDuration);
+                
             }
         }
         
@@ -75,6 +70,17 @@ public class Defender : MonoBehaviour
             }
         }
         
+    }
+
+    public void ReturnPosition()
+    {
+        var step = returnSpeed * Time.deltaTime;
+        transform.position = Vector3.MoveTowards(transform.position, initialPosition, step);
+
+        if (Vector3.Distance(transform.position, initialPosition) < 0.001f)
+        {
+            SetActive();
+        }
     }
 
     public void SetActive()

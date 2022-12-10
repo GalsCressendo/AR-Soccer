@@ -10,13 +10,33 @@ public class GameManager : MonoBehaviour
     const string DEFENDER_TAG = "Defender";
     const float SPAWN_TIME = 0.5f;
 
-    public List<Camera> cameras;
+    [SerializeField] List<Camera> cameras;
 
-    public GameObject playerPrefab;
-    public GameObject playerContainer;
+    [SerializeField] GameObject playerPrefab;
+    [SerializeField] GameObject playerContainer;
 
-    public GameObject enemyContainer;
-    public GameObject enemyPrefab;
+    [SerializeField] GameObject enemyContainer;
+    [SerializeField] GameObject enemyPrefab;
+
+    [SerializeField] GameObject ballPrefab;
+    bool ballSpawned;
+
+    [SerializeField]BoxCollider playerAreaCollider;
+    [SerializeField]BoxCollider enemyAreaCollider;
+
+    public enum GameState
+    {
+        NONE,
+        PLAYER_ATTACK_STATE,
+        PLAYER_DEFENSE_STATE
+    }
+
+    public GameState state = GameState.PLAYER_ATTACK_STATE;
+
+    private void Start()
+    {
+        SpawnBall();
+    }
 
     private void Update()
     {
@@ -92,5 +112,32 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(SPAWN_TIME);
         spawned.GetComponent<Defender>().ReactiveAfterSpawn();
         Debug.Log("Defender activated");
+    }
+
+    private void SpawnBall()
+    {
+        if (state == GameState.PLAYER_ATTACK_STATE)
+        {
+            CountSpawnBallArea(playerAreaCollider);
+        }
+        else if(state == GameState.PLAYER_DEFENSE_STATE)
+        {
+            CountSpawnBallArea(enemyAreaCollider);
+        }
+    }
+
+    private void CountSpawnBallArea(BoxCollider areaCollider)
+    {
+        Transform areaTransform = areaCollider.GetComponent<Transform>();
+        Vector3 center = areaTransform.position;
+
+        Vector3 areaSize;
+        areaSize.x = areaTransform.localScale.x * areaCollider.size.x;
+        areaSize.z = areaTransform.localScale.z * areaCollider.size.z;
+
+        Vector3 randomPosition = new Vector3(Random.Range(-areaSize.x / 2, areaSize.x / 2), 0f, Random.Range(-areaSize.z / 2, areaSize.z / 2));
+        Vector3 spawnPosition = new Vector3(center.x + randomPosition.x, 0.3f, center.z + randomPosition.z);
+        Instantiate(ballPrefab, spawnPosition, ballPrefab.transform.rotation);
+
     }
 }

@@ -376,6 +376,10 @@ MonoBehaviour:
   playerContainer: {fileID: 1903165362}
   enemyContainer: {fileID: 1735336845}
   enemyPrefab: {fileID: 7068788918215693777, guid: fe9caceff25bf68419d4102cbdead9c7, type: 3}
+  ballPrefab: {fileID: 3028943480105391113, guid: 983135bf9cd249e469b9c1c2a9b10542, type: 3}
+  playerAreaCollider: {fileID: 1215626659}
+  enemyAreaCollider: {fileID: 1059577947}
+  state: 1
 --- !u!1 &445416847
 GameObject:
   m_ObjectHideFlags: 0
