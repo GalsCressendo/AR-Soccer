@@ -5,6 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Field
+  - Ball
+  - Goal_Red
+  - Goal_Blue
+  - Fence_Red
+  - Fence_Blue
+  - Detection
   layers:
   - Default
   - TransparentFX
