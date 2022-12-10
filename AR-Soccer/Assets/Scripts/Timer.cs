@@ -1,0 +1,56 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using TMPro;
+
+public class Timer : MonoBehaviour
+{
+    float matchTime = 140;
+    float timeRemaining;
+    public bool isTicking;
+    [SerializeField] TextMeshProUGUI countdownText;
+
+    private void Start()
+    {
+        timeRemaining = matchTime;
+    }
+
+    private void Update()
+    {
+        if (isTicking)
+        {
+            if (timeRemaining > 0)
+            {
+                timeRemaining -= Time.deltaTime;
+                DisplayTime(timeRemaining);
+                if(timeRemaining <= 10)
+                {
+                    countdownText.color = Color.red;
+                }
+            }
+            else
+            {
+                Debug.Log("TIME's OUT");
+                timeRemaining = 0;
+                isTicking = false;
+    
+                //Switch State
+            }
+        }
+        
+    }
+
+    void DisplayTime(float time)
+    {
+        time += 1;
+        float minutes = Mathf.FloorToInt(time / 60);
+        float seconds = Mathf.FloorToInt(time % 60);
+        countdownText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+    }
+
+    public void ResetTime()
+    {
+        timeRemaining = matchTime;
+        countdownText.color = Color.white;
+    }
+}
