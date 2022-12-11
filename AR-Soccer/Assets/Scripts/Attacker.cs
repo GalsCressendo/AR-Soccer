@@ -7,7 +7,6 @@ public class Attacker : MonoBehaviour
     const string BALL_TAG = "Ball";
     const string GAME_MANAGER_TAG = "GameManager";
     const string PLAYER_TAG = "Player";
-    const string ENEMY_TAG = "Enemy";
     public UnitAttributes attributes;
 
     const float chaseBallSpeed = 1.5f;
@@ -59,7 +58,7 @@ public class Attacker : MonoBehaviour
 
                     MoveTowardsTarget(ballTarget, chaseBallSpeed);
 
-                    if (Vector3.Distance(transform.position, ballTarget.position) < 0.4f)
+                    if (Vector3.Distance(transform.position, ballTarget.position) < 0.3f)
                     {
                         ballTarget.transform.SetParent(gameObject.transform, true);
                         haveBall = true;
@@ -93,15 +92,22 @@ public class Attacker : MonoBehaviour
                 }
 
 
-                //If the player carry a ball
+                //If the attacker carry a ball
                 if (haveBall)
                 {
                     highlight.SetActive(true);
                     MoveTowardsTarget(goalTarget, carryBallSpeed);
+
+                    if(Vector3.Distance(transform.position, goalTarget.position) < 0.3f)
+                    {
+                        Destroy(gameObject);
+                        //Add win score for attacker
+                    }
+
                     material.color = activeColor;
                 }
 
-                //if player is captured
+                //if attacker is captured
                 if (isCaptured)
                 {
                     Invoke("ReactiveAfterCaptured", reactiveTime);
@@ -120,14 +126,14 @@ public class Attacker : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == attributes.GOAL_TAG)
+        if(other.tag == attributes.FENCE_TAG)
         {
             Destroy(gameObject);
-            //ADD SCORE
         }
-        else if(other.tag == attributes.FENCE_TAG)
+        else if(other.tag == attributes.GOAL_TAG)
         {
             Destroy(gameObject);
+            //if have ball then win for the attacker
         }
     }
 

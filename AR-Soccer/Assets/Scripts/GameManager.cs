@@ -169,7 +169,7 @@ public class GameManager : MonoBehaviour
         areaSize.z = areaTransform.localScale.z * areaCollider.size.z;
 
         Vector3 randomPosition = new Vector3(Random.Range(-areaSize.x / 2, areaSize.x / 2), 0f, Random.Range(-areaSize.z / 2, areaSize.z / 2));
-        Vector3 spawnPosition = new Vector3(center.x + randomPosition.x, 0.3f, center.z + randomPosition.z);
+        Vector3 spawnPosition = new Vector3(center.x + randomPosition.x, 0.1f, center.z + randomPosition.z);
 
         Instantiate(ballPrefab, spawnPosition, ballPrefab.transform.rotation);
 
