@@ -40,7 +40,6 @@ public class EnergyBar : MonoBehaviour
         int targetPoint = activePoints - cost;
         for(int i=activePoints; i > targetPoint;i--)
         {
-            Debug.Log(i-1);
             activeSliders[i - 1].SetActive(false);
 
         }

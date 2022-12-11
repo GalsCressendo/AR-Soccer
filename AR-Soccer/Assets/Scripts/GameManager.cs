@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     const int DEFENDER_SPAWN_COST = 3;
     const float SPAWN_TIME = 0.5f;
     const float STATE_POP_UP_TIME = 1f;
+    const int TOTAL_MATCH = 5;
 
     [SerializeField] List<Camera> cameras;
 
@@ -32,6 +33,10 @@ public class GameManager : MonoBehaviour
 
     public StatePopUp statePopUp;
     public bool gameIsActive;
+
+    int matchCount = 1;
+    [SerializeField] ScoreManager scoreManager;
+    [SerializeField] ResultPopUp resultPopUp;
 
     public enum GameState
     {
@@ -235,19 +240,29 @@ public class GameManager : MonoBehaviour
 
     public void SwitchGameState()
     {
-        gameIsActive = false;
-        ClearStage();
+        matchCount += 1;
 
-        if (state == GameState.PLAYER_ATTACK_STATE)
+        if (matchCount <= TOTAL_MATCH)
         {
-            state = GameState.PLAYER_DEFENSE_STATE;
-        }
-        else
-        {
-            state = GameState.PLAYER_ATTACK_STATE;
-        }
+            gameIsActive = false;
+            ClearStage();
 
-        EnableStatePopUp();
+            if (state == GameState.PLAYER_ATTACK_STATE)
+            {
+                state = GameState.PLAYER_DEFENSE_STATE;
+            }
+            else
+            {
+                state = GameState.PLAYER_ATTACK_STATE;
+            }
+
+            EnableStatePopUp();
+        }
+        else if (matchCount > TOTAL_MATCH)
+        {
+            DeclareGameWinner();
+        }
+        
     }
 
     private void ClearStage()
@@ -300,4 +315,67 @@ public class GameManager : MonoBehaviour
 
         return spawnedObject;
     }
+
+    public void DeclareWinAttacker()
+    {
+        if(state == GameState.PLAYER_ATTACK_STATE)
+        {
+            scoreManager.AddPlayerScore();
+        }
+        else
+        {
+            scoreManager.AddEnemyScore();
+        }
+
+        SwitchGameState();
+
+    }
+
+    public void DeclareWinDefender()
+    {
+        if(state == GameState.PLAYER_DEFENSE_STATE)
+        {
+            scoreManager.AddPlayerScore();
+        }
+        else
+        {
+            scoreManager.AddEnemyScore();
+        }
+
+        SwitchGameState();
+    }
+
+    public void DeclareGameWinner()
+    {
+        state = GameState.NONE;
+
+        energyBarEnemy.ResetEnergyBar();
+        energyBarPlayer.ResetEnergyBar();
+
+        bool playerWin = scoreManager.isPlayerWinner();
+        resultPopUp.transform.gameObject.SetActive(true);
+
+        if (!playerWin)
+        {
+            bool isDraw = scoreManager.isResultDraw();
+            if (isDraw)
+            {
+                resultPopUp.SetResultDraw();
+                //TO DO: CREATE BONUS STAGE
+            }
+            else
+            {
+                //player is lose, the enemy win
+                resultPopUp.SetEnemyWinner();
+
+            }
+
+        }
+        else //player is winner
+        {
+            resultPopUp.SetPlayerWinner();
+        }
+
+    }
+
 }
