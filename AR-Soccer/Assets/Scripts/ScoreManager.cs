@@ -23,4 +23,24 @@ public class ScoreManager : MonoBehaviour
         enemyScoreText.text = string.Format("Score:{0}",enemyScore);
     }
 
+    public bool isPlayerWinner()
+    {
+        if(playerScore > enemyScore)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public bool isResultDraw()
+    {
+        if(playerScore == enemyScore)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
 }
