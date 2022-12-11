@@ -17,14 +17,18 @@ public class Defender : MonoBehaviour
     Transform attacker;
     public GameObject detection;
 
-    Material material;
-    Color initialColor;
+    [SerializeField] Renderer surfaceRenderer;
+    [SerializeField] Renderer boneRenderer;
+    Color surfaceActiveColor;
+    Color boneActiveColor;
 
     private void Awake()
     {
         initialPosition = transform.position;
-        material = gameObject.GetComponent<MeshRenderer>().material;
-        initialColor = material.color;
+
+        surfaceActiveColor = surfaceRenderer.material.color;
+        boneActiveColor = boneRenderer.material.color;
+
         isSpawned = true;
     }
 
@@ -34,7 +38,8 @@ public class Defender : MonoBehaviour
         {
             if (isSpawned)
             {
-                material.color = new Color(initialColor.r, initialColor.g, initialColor.b, 0.5f);
+                surfaceRenderer.material.color = new Color(surfaceActiveColor.r, surfaceActiveColor.g, surfaceActiveColor.b, 0.5f);
+                boneRenderer.material.color = new Color(boneActiveColor.r, boneActiveColor.g, boneActiveColor.b, 0.5f);
             }
             else
             {
@@ -58,7 +63,8 @@ public class Defender : MonoBehaviour
 
                 if (!isActive)
                 {
-                    material.color = new Color(initialColor.r, initialColor.g, initialColor.b, 0.5f);
+                    surfaceRenderer.material.color = new Color(surfaceActiveColor.r, surfaceActiveColor.g, surfaceActiveColor.b, 0.5f);
+                    boneRenderer.material.color = new Color(boneActiveColor.r, boneActiveColor.g, boneActiveColor.b, 0.5f);
                     Invoke("ReturnPosition", inactiveDuration);
 
                 }
@@ -92,14 +98,16 @@ public class Defender : MonoBehaviour
 
     public void SetActive()
     {
-        material.color = initialColor;
+        surfaceRenderer.material.color = surfaceActiveColor;
+        boneRenderer.material.color = boneActiveColor;
         isActive = true;
         detection.SetActive(true);
     }
 
     public void ReactiveAfterSpawn()
     {
-        material.color = initialColor;
+        surfaceRenderer.material.color = surfaceActiveColor;
+        boneRenderer.material.color = boneActiveColor;
         isSpawned = false;
         detection.SetActive(true);
     }

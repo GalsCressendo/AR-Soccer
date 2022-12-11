@@ -16,8 +16,10 @@ public class Attacker : MonoBehaviour
     Transform ballTarget;
     Transform goalTarget;
 
-    Material material;
-    Color activeColor;
+    [SerializeField] Renderer surfaceRenderer;
+    [SerializeField] Renderer boneRenderer;
+    Color surfaceActiveColor;
+    Color boneActiveColor;
 
     public GameObject highlight;
 
@@ -32,8 +34,8 @@ public class Attacker : MonoBehaviour
     {
         goalTarget = GameObject.FindGameObjectWithTag(attributes.GOAL_TAG).transform;
 
-        material = GetComponent<MeshRenderer>().material;
-        activeColor = material.color;
+        surfaceActiveColor = surfaceRenderer.material.color;
+        boneActiveColor = boneRenderer.material.color;
 
         isSpawned = true;
     }
@@ -44,7 +46,8 @@ public class Attacker : MonoBehaviour
         {
             if (isSpawned)
             {
-                material.color = new Color(activeColor.r, activeColor.g, activeColor.b, 0.5f);
+                surfaceRenderer.material.color = new Color(surfaceActiveColor.r, surfaceActiveColor.g, surfaceActiveColor.b, 0.5f);
+                boneRenderer.material.color = new Color(boneActiveColor.r, boneActiveColor.g, boneActiveColor.b, 0.5f);
             }
             else
             {
@@ -104,7 +107,8 @@ public class Attacker : MonoBehaviour
                         //Add win score for attacker
                     }
 
-                    material.color = activeColor;
+                    surfaceRenderer.material.color = surfaceActiveColor;
+                    boneRenderer.material.color = boneActiveColor;
                 }
 
                 //if attacker is captured
@@ -146,7 +150,8 @@ public class Attacker : MonoBehaviour
         {
             isCaptured = true;
             highlight.SetActive(false);
-            material.color = new Color(activeColor.r, activeColor.g, activeColor.b, 0.5f);
+            surfaceRenderer.material.color = new Color(surfaceActiveColor.r, surfaceActiveColor.g, surfaceActiveColor.b, 0.5f);
+            boneRenderer.material.color = new Color(boneActiveColor.r, boneActiveColor.g, boneActiveColor.b, 0.5f);
 
             var nearestDistance = float.MaxValue;
             Transform nearestTransform = null;
@@ -181,13 +186,15 @@ public class Attacker : MonoBehaviour
 
     private void ReactiveAfterCaptured()
     {
-        material.color = activeColor;
+        surfaceRenderer.material.color = surfaceActiveColor;
+        boneRenderer.material.color = boneActiveColor;
         isCaptured = false;
     }
 
     public void ReactiveAfterSpawn()
     {
-        material.color = activeColor;
+        surfaceRenderer.material.color = surfaceActiveColor;
+        boneRenderer.material.color = boneActiveColor;
         isSpawned = false;
     }
 
