@@ -1,0 +1,447 @@
+fileFormatVersion: 2
+guid: 92111b09ac6239d46b159909d60ea50b
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 0
+    wrapV: 0
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 0
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: "\u2014Pngtree\u2014set of sci-fi game buttons_6234083_0"
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 1025
+        width: 1211
+        height: 881
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d2b645dc2b671743a5ad163587ca2a3
+      internalID: 1332492253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u2014Pngtree\u2014set of sci-fi game buttons_6234083_1"
+      rect:
+        serializedVersion: 2
+        x: 1466
+        y: 1645
+        width: 467
+        height: 261
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e37c853ccc98424d9bc3aabc0b33787
+      internalID: -903301843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u2014Pngtree\u2014set of sci-fi game buttons_6234083_2"
+      rect:
+        serializedVersion: 2
+        x: 1466
+        y: 1334
+        width: 467
+        height: 261
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0a05acd4317e254685696cc6e1b3750
+      internalID: -2022473282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u2014Pngtree\u2014set of sci-fi game buttons_6234083_3"
+      rect:
+        serializedVersion: 2
+        x: 1466
+        y: 1030
+        width: 467
+        height: 260
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61fc37c0a4cf6c349b066c1c5cdeaf3f
+      internalID: -1455116644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u2014Pngtree\u2014set of sci-fi game buttons_6234083_4"
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 635
+        width: 1312
+        height: 340
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 311, y: -137}
+        - {x: 311, y: 163}
+        - {x: 651, y: 163}
+        - {x: 651, y: -137}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e84d08bfeb005c14eaf94fd3b4523e86
+      internalID: 1684689093
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u2014Pngtree\u2014set of sci-fi game buttons_6234083_5"
+      rect:
+        serializedVersion: 2
+        x: 1466
+        y: 717
+        width: 467
+        height: 259
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc669152e3011bd49b0eb589bde35453
+      internalID: -1992388485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u2014Pngtree\u2014set of sci-fi game buttons_6234083_6"
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 336
+        width: 284
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85b4209539ca1e7479f1a588c405ad4b
+      internalID: -1360169772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u2014Pngtree\u2014set of sci-fi game buttons_6234083_7"
+      rect:
+        serializedVersion: 2
+        x: 422
+        y: 336
+        width: 284
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 361fc6305b34fdb49872fae61d10b09c
+      internalID: -803526538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u2014Pngtree\u2014set of sci-fi game buttons_6234083_8"
+      rect:
+        serializedVersion: 2
+        x: 734
+        y: 336
+        width: 284
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a8e25486e77ed543abe94b5faa51c24
+      internalID: -1494157666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u2014Pngtree\u2014set of sci-fi game buttons_6234083_9"
+      rect:
+        serializedVersion: 2
+        x: 1052
+        y: 336
+        width: 284
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6739b2872103b9f49bb27f22a4fae967
+      internalID: 1475607371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u2014Pngtree\u2014set of sci-fi game buttons_6234083_10"
+      rect:
+        serializedVersion: 2
+        x: 1469
+        y: 413
+        width: 467
+        height: 260
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 414bcd59492daab4c9ebe4e43a1d02a7
+      internalID: -130250753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u2014Pngtree\u2014set of sci-fi game buttons_6234083_11"
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 0
+        width: 737
+        height: 296
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 624ed47b75c08c841b263c718295e365
+      internalID: 1469910380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u2014Pngtree\u2014set of sci-fi game buttons_6234083_12"
+      rect:
+        serializedVersion: 2
+        x: 1042
+        y: 22
+        width: 294
+        height: 274
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b89bd137fcae0434289fb13217705b84
+      internalID: 1588790187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u2014Pngtree\u2014set of sci-fi game buttons_6234083_13"
+      rect:
+        serializedVersion: 2
+        x: 1469
+        y: 110
+        width: 467
+        height: 260
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8cf4a8803947f84184442c90a9feaca
+      internalID: 1678750371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: a3bb81c75edf4064a918930e6ac560b6
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      "\u2014Pngtree\u2014set of sci-fi game buttons_6234083_6": -1360169772
+      "\u2014Pngtree\u2014set of sci-fi game buttons_6234083_3": -1455116644
+      "\u2014Pngtree\u2014set of sci-fi game buttons_6234083_4": 1684689093
+      "\u2014Pngtree\u2014set of sci-fi game buttons_6234083_9": 1475607371
+      "\u2014Pngtree\u2014set of sci-fi game buttons_6234083_1": -903301843
+      "\u2014Pngtree\u2014set of sci-fi game buttons_6234083_13": 1678750371
+      "\u2014Pngtree\u2014set of sci-fi game buttons_6234083_0": 1332492253
+      "\u2014Pngtree\u2014set of sci-fi game buttons_6234083_2": -2022473282
+      "\u2014Pngtree\u2014set of sci-fi game buttons_6234083_11": 1469910380
+      "\u2014Pngtree\u2014set of sci-fi game buttons_6234083_12": 1588790187
+      "\u2014Pngtree\u2014set of sci-fi game buttons_6234083_7": -803526538
+      "\u2014Pngtree\u2014set of sci-fi game buttons_6234083_5": -1992388485
+      "\u2014Pngtree\u2014set of sci-fi game buttons_6234083_8": -1494157666
+      "\u2014Pngtree\u2014set of sci-fi game buttons_6234083_10": -130250753
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

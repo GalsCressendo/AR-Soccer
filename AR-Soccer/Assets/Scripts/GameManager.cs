@@ -8,6 +8,9 @@ public class GameManager : MonoBehaviour
     const string ENEMY_AREA_TAG = "EnemyArea";
     const string ATTACKER_TAG = "Attacker";
     const string DEFENDER_TAG = "Defender";
+    const string BALL_TAG = "Ball";
+    const int ATTACKER_SPAWN_COST = 2;
+    const int DEFENDER_SPAWN_COST = 3;
     const float SPAWN_TIME = 0.5f;
     const float STATE_POP_UP_TIME = 1f;
 
@@ -23,6 +26,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] BoxCollider enemyAreaCollider;
 
     [SerializeField] Timer timer;
+
+    [SerializeField] EnergyBar energyBarPlayer;
+    [SerializeField] EnergyBar energyBarEnemy;
 
     public StatePopUp statePopUp;
     public bool gameIsActive;
@@ -61,34 +67,48 @@ public class GameManager : MonoBehaviour
                 {
                     if (hit.transform.tag == PLAYER_AREA_TAG)
                     {
-                        spawnedObject = Instantiate(playerPrefab, hit.point, playerPrefab.transform.rotation);
-                        spawnedObject.transform.SetParent(playerContainer.transform, true);
-                        playerContainer.GetComponent<UnitContainer>().units.Add(spawnedObject);
-                        spawnedObject.GetComponent<Attacker>().unitContainer = playerContainer.GetComponent<UnitContainer>();
-
                         if(state == GameState.PLAYER_ATTACK_STATE)
                         {
-                            SetUnitAttackState(spawnedObject, true);
+                            if(energyBarPlayer.activePoints >= ATTACKER_SPAWN_COST)
+                            {
+                                spawnedObject = SpawnPlayer(hit);
+                                SetUnitAttackState(spawnedObject, true);
+                                energyBarPlayer.ReduceEnergy(ATTACKER_SPAWN_COST);
+                            }
                         }
                         else
                         {
-                            SetUnitAttackState(spawnedObject, false);
+                            if(energyBarPlayer.activePoints >= DEFENDER_SPAWN_COST)
+                            {
+                                spawnedObject = SpawnPlayer(hit);
+                                SetUnitAttackState(spawnedObject, false);
+                                energyBarPlayer.ReduceEnergy(DEFENDER_SPAWN_COST);
+                            }
+
                         }
+                        
                     }
                     else if (hit.transform.tag == ENEMY_AREA_TAG)
                     {
-                        spawnedObject = Instantiate(enemyPrefab, hit.point, enemyPrefab.transform.rotation);
-                        spawnedObject.transform.SetParent(enemyContainer.transform, true);
-                        enemyContainer.GetComponent<UnitContainer>().units.Add(spawnedObject);
-                        spawnedObject.GetComponent<Attacker>().unitContainer = enemyContainer.GetComponent<UnitContainer>();
 
                         if(state == GameState.PLAYER_DEFENSE_STATE)
                         {
-                            SetUnitAttackState(spawnedObject, true);
+                            if(energyBarEnemy.activePoints >= ATTACKER_SPAWN_COST)
+                            {
+                                spawnedObject = SpawnEnemy(hit);
+                                SetUnitAttackState(spawnedObject, true);
+                                energyBarEnemy.ReduceEnergy(ATTACKER_SPAWN_COST);
+                            }
                         }
                         else
                         {
-                            SetUnitAttackState(spawnedObject, false);
+                            if(energyBarEnemy.activePoints >= DEFENDER_SPAWN_COST)
+                            {
+                                spawnedObject = SpawnEnemy(hit);
+                                SetUnitAttackState(spawnedObject, false);
+                                energyBarEnemy.ReduceEnergy(DEFENDER_SPAWN_COST);
+                            }
+
                         }
                     }
 
@@ -179,6 +199,14 @@ public class GameManager : MonoBehaviour
     {
         statePopUp.transform.gameObject.SetActive(true);
         gameIsActive = false;
+
+        //Destroy ball if exist
+        if (GameObject.FindGameObjectWithTag(BALL_TAG))
+        {
+            Destroy(GameObject.FindGameObjectWithTag(BALL_TAG));
+        }
+
+
         if (state == GameState.PLAYER_ATTACK_STATE)
         {
             statePopUp.ShowPlayerAttack();
@@ -187,6 +215,9 @@ public class GameManager : MonoBehaviour
         {
             statePopUp.ShowEnemyAttack();
         }
+
+        energyBarEnemy.ResetEnergyBar();
+        energyBarPlayer.ResetEnergyBar();
 
         Invoke("DisableStatePopUp", STATE_POP_UP_TIME);
     }
@@ -197,6 +228,9 @@ public class GameManager : MonoBehaviour
         SpawnBall();
         statePopUp.transform.gameObject.SetActive(false);
         timer.ResetTime();
+
+        energyBarEnemy.StartEnergyBar();
+        energyBarPlayer.StartEnergyBar();
     }
 
     public void SwitchGameState()
@@ -243,5 +277,27 @@ public class GameManager : MonoBehaviour
             unit.GetComponent<Attacker>().enabled = false;
             unit.GetComponent<Defender>().enabled = true;
         }
+    }
+
+    private GameObject SpawnPlayer(RaycastHit hit)
+    {
+        GameObject spawnedObject;
+        spawnedObject = Instantiate(playerPrefab, hit.point, playerPrefab.transform.rotation);
+        spawnedObject.transform.SetParent(playerContainer.transform, true);
+        playerContainer.GetComponent<UnitContainer>().units.Add(spawnedObject);
+        spawnedObject.GetComponent<Attacker>().unitContainer = playerContainer.GetComponent<UnitContainer>();
+
+        return spawnedObject;
+    }
+
+    private GameObject SpawnEnemy(RaycastHit hit)
+    {
+        GameObject spawnedObject;
+        spawnedObject = Instantiate(enemyPrefab, hit.point, enemyPrefab.transform.rotation);
+        spawnedObject.transform.SetParent(enemyContainer.transform, true);
+        enemyContainer.GetComponent<UnitContainer>().units.Add(spawnedObject);
+        spawnedObject.GetComponent<Attacker>().unitContainer = enemyContainer.GetComponent<UnitContainer>();
+
+        return spawnedObject;
     }
 }
