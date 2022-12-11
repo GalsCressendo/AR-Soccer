@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -38,12 +39,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] ScoreManager scoreManager;
     [SerializeField] ResultPopUp resultPopUp;
 
+
     public enum GameState
     {
         NONE,
         PLAYER_ATTACK_STATE,
         PLAYER_DEFENSE_STATE
     }
+
+    [SerializeField] TextMeshProUGUI playerStateText;
+    [SerializeField] TextMeshProUGUI enemyStateText;
 
     public GameState state = GameState.NONE;
 
@@ -250,10 +255,14 @@ public class GameManager : MonoBehaviour
             if (state == GameState.PLAYER_ATTACK_STATE)
             {
                 state = GameState.PLAYER_DEFENSE_STATE;
+                playerStateText.text = "Player (DEFENDER)";
+                enemyStateText.text = "Enemy (ATTACKER)";
             }
             else
             {
                 state = GameState.PLAYER_ATTACK_STATE;
+                playerStateText.text = "Player (ATTACKER)";
+                enemyStateText.text = "Enemy (DEFENDER)";
             }
 
             EnableStatePopUp();
