@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class EnergyBar : MonoBehaviour
 {
-    const float energyPerSeconds = 0.5f;
+    const float ENERGY_PER_SECONDS = 0.5f;
 
     [SerializeField] Slider inactiveSlider;
     
@@ -21,6 +21,6 @@ public class EnergyBar : MonoBehaviour
 
     private void Update()
     {
-
+        inactiveSlider.value = Mathf.MoveTowards(inactiveSlider.value, inactiveSlider.value + ENERGY_PER_SECONDS , Time.deltaTime/2);
     }
 }

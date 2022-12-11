@@ -305,7 +305,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 6
   m_WholeNumbers: 0
-  m_Value: 3.56
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -3356,8 +3356,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 660b8f9ce84751048a5c7ce6795336d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  energyBarBlue: {fileID: 0}
-  energyBarRed: {fileID: 0}
+  energyBarBlue: {fileID: 1206879413}
+  energyBarRed: {fileID: 825100046}
 --- !u!1 &881804060
 GameObject:
   m_ObjectHideFlags: 0
@@ -6018,7 +6018,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 6
   m_WholeNumbers: 0
-  m_Value: 3.56
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
