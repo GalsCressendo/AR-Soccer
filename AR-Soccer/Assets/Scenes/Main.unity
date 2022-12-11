@@ -308,7 +308,19 @@ MonoBehaviour:
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 825100046}
+        m_TargetAssemblyTypeName: EnergyBar, Assembly-CSharp
+        m_MethodName: OnInactiveValueChanged
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &68807730
 GameObject:
   m_ObjectHideFlags: 0
@@ -3063,18 +3075,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inactiveSlider: {fileID: 68660175}
   activeSliders:
-  - value: 1
-    bar: {fileID: 2058449595}
-  - value: 2
-    bar: {fileID: 1478658304}
-  - value: 3
-    bar: {fileID: 1630332902}
-  - value: 4
-    bar: {fileID: 1028495234}
-  - value: 5
-    bar: {fileID: 458148634}
-  - value: 6
-    bar: {fileID: 862931893}
+  - {fileID: 2058449595}
+  - {fileID: 1478658304}
+  - {fileID: 1630332902}
+  - {fileID: 1028495234}
+  - {fileID: 458148634}
+  - {fileID: 862931893}
 --- !u!1 &827522324
 GameObject:
   m_ObjectHideFlags: 0
@@ -4615,18 +4621,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inactiveSlider: {fileID: 1549720351}
   activeSliders:
-  - value: 1
-    bar: {fileID: 274023448}
-  - value: 2
-    bar: {fileID: 1783304552}
-  - value: 3
-    bar: {fileID: 453980036}
-  - value: 4
-    bar: {fileID: 787417228}
-  - value: 5
-    bar: {fileID: 430168235}
-  - value: 6
-    bar: {fileID: 276160461}
+  - {fileID: 274023448}
+  - {fileID: 1783304552}
+  - {fileID: 453980036}
+  - {fileID: 787417228}
+  - {fileID: 430168235}
+  - {fileID: 276160461}
 --- !u!1 &1215626657
 GameObject:
   m_ObjectHideFlags: 0
@@ -6021,7 +6021,19 @@ MonoBehaviour:
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1206879413}
+        m_TargetAssemblyTypeName: EnergyBar, Assembly-CSharp
+        m_MethodName: OnInactiveValueChanged
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1555465973
 GameObject:
   m_ObjectHideFlags: 0

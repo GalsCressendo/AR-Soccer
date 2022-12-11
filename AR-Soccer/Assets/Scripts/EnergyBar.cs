@@ -9,18 +9,28 @@ public class EnergyBar : MonoBehaviour
     const float ENERGY_PER_SECONDS = 0.5f;
 
     [SerializeField] Slider inactiveSlider;
-    
-    [Serializable]
-    public struct ActiveSlider
-    {
-        public int value;
-        public GameObject bar;
-    }
 
-    public List<ActiveSlider> activeSliders;
+    public List<GameObject> activeSliders;
+    bool addValue = true;
+    int targetValue = 1;
 
     private void Update()
     {
-        inactiveSlider.value = Mathf.MoveTowards(inactiveSlider.value, inactiveSlider.value + ENERGY_PER_SECONDS , Time.deltaTime/2);
+        if (addValue)
+        {
+            inactiveSlider.value = Mathf.MoveTowards(inactiveSlider.value, targetValue, ENERGY_PER_SECONDS * Time.deltaTime);
+        }
+        
     }
+
+    public void OnInactiveValueChanged()
+    {
+        if(inactiveSlider.value == targetValue)
+        {
+            activeSliders[targetValue - 1].SetActive(true);
+            targetValue += 1;
+        }
+    }
+
+
 }
