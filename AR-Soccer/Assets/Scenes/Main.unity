@@ -996,6 +996,8 @@ MonoBehaviour:
   playerAreaCollider: {fileID: 1215626659}
   enemyAreaCollider: {fileID: 1059577947}
   timer: {fileID: 1617998501}
+  energyBarPlayer: {fileID: 1206879413}
+  energyBarEnemy: {fileID: 825100046}
   statePopUp: {fileID: 1421377978}
   gameIsActive: 0
   state: 1
@@ -3081,6 +3083,7 @@ MonoBehaviour:
   - {fileID: 1028495234}
   - {fileID: 458148634}
   - {fileID: 862931893}
+  activePoints: 0
 --- !u!1 &827522324
 GameObject:
   m_ObjectHideFlags: 0
@@ -3320,7 +3323,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 875433324}
-  - component: {fileID: 875433325}
   m_Layer: 5
   m_Name: EnergyBar
   m_TagString: Untagged
@@ -3350,20 +3352,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &875433325
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 875433323}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 660b8f9ce84751048a5c7ce6795336d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  energyBarBlue: {fileID: 1206879413}
-  energyBarRed: {fileID: 825100046}
 --- !u!1 &881804060
 GameObject:
   m_ObjectHideFlags: 0
@@ -4627,6 +4615,7 @@ MonoBehaviour:
   - {fileID: 787417228}
   - {fileID: 430168235}
   - {fileID: 276160461}
+  activePoints: 0
 --- !u!1 &1215626657
 GameObject:
   m_ObjectHideFlags: 0

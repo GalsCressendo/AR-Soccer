@@ -13,6 +13,7 @@ public class EnergyBar : MonoBehaviour
     public List<GameObject> activeSliders;
     bool addValue = true;
     int targetValue = 1;
+    public int activePoints = 0;
 
     private void Update()
     {
@@ -29,7 +30,24 @@ public class EnergyBar : MonoBehaviour
         {
             activeSliders[targetValue - 1].SetActive(true);
             targetValue += 1;
+            activePoints += 1;
         }
+    }
+
+    public void ReduceEnergy(int cost)
+    {
+        inactiveSlider.value -= cost;
+        int targetPoint = activePoints - cost;
+        Debug.Log("Target Point:" + targetPoint);
+        for(int i=activePoints; i > targetPoint;i--)
+        {
+            Debug.Log(i-1);
+            activeSliders[i - 1].SetActive(false);
+
+        }
+
+        activePoints -= cost;
+        targetValue -= cost;
     }
 
 
