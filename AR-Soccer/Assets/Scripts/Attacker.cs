@@ -132,8 +132,11 @@ public class Attacker : MonoBehaviour
         }
         else if(other.tag == attributes.GOAL_TAG)
         {
+            if (haveBall)
+            {
+                GameObject.FindGameObjectWithTag(GAME_MANAGER_TAG).GetComponent<GameManager>().DeclareWinAttacker();
+            }
             Destroy(gameObject);
-            //if have ball then win for the attacker
         }
     }
 
@@ -164,8 +167,9 @@ public class Attacker : MonoBehaviour
                 nearestTransform.GetComponent<Attacker>().isReceiving = true;
                 ballTarget.GetComponent<Ball>().PassBallToNearest(nearestTransform);
             }
-            else
+            else //if there is no one to pass the ball
             {
+                GameObject.FindGameObjectWithTag(GAME_MANAGER_TAG).GetComponent<GameManager>().DeclareWinDefender();
                 Destroy(ballTarget.gameObject);
             }
 

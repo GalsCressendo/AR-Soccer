@@ -33,6 +33,9 @@ public class GameManager : MonoBehaviour
     public StatePopUp statePopUp;
     public bool gameIsActive;
 
+    [SerializeField] ScoreManager scoreManager;
+    int matchCount = 1;
+
     public enum GameState
     {
         NONE,
@@ -299,5 +302,34 @@ public class GameManager : MonoBehaviour
         spawnedObject.GetComponent<Attacker>().unitContainer = enemyContainer.GetComponent<UnitContainer>();
 
         return spawnedObject;
+    }
+
+    public void DeclareWinAttacker()
+    {
+        if(state == GameState.PLAYER_ATTACK_STATE)
+        {
+            scoreManager.AddPlayerScore();
+        }
+        else
+        {
+            scoreManager.AddEnemyScore();
+        }
+
+        SwitchGameState();
+
+    }
+
+    public void DeclareWinDefender()
+    {
+        if(state == GameState.PLAYER_DEFENSE_STATE)
+        {
+            scoreManager.AddPlayerScore();
+        }
+        else
+        {
+            scoreManager.AddEnemyScore();
+        }
+
+        SwitchGameState();
     }
 }
