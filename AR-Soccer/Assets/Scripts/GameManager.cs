@@ -332,4 +332,5 @@ public class GameManager : MonoBehaviour
 
         SwitchGameState();
     }
+
 }

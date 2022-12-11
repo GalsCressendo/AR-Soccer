@@ -5,7 +5,7 @@ using TMPro;
 
 public class Timer : MonoBehaviour
 {
-    float matchTime = 140;
+    float matchTime = 10;
     float timeRemaining;
     public bool isTicking;
     public GameManager gameManager;
@@ -33,7 +33,7 @@ public class Timer : MonoBehaviour
             {
                 timeRemaining = 0;
                 isTicking = false;
-                gameManager.SwitchGameState();
+                gameManager.DeclareWinDefender();
             }
         }
         
