@@ -1843,7 +1843,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -0.000017643}
+  m_AnchoredPosition: {x: 0, y: -0.000019073486}
   m_SizeDelta: {x: 134.87, y: 98.649}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &611830901
@@ -3017,6 +3017,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 825100045}
+  - component: {fileID: 825100046}
   m_Layer: 5
   m_Name: Energy Bar
   m_TagString: Untagged
@@ -3048,6 +3049,32 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -28.035}
   m_SizeDelta: {x: 0, y: 56.07}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &825100046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 825100044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fca44e5e4ac75224c81f5ed3dbd07fb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inactiveSlider: {fileID: 68660175}
+  activeSliders:
+  - value: 1
+    bar: {fileID: 2058449595}
+  - value: 2
+    bar: {fileID: 1478658304}
+  - value: 3
+    bar: {fileID: 1630332902}
+  - value: 4
+    bar: {fileID: 1028495234}
+  - value: 5
+    bar: {fileID: 458148634}
+  - value: 6
+    bar: {fileID: 862931893}
 --- !u!1 &827522324
 GameObject:
   m_ObjectHideFlags: 0
@@ -3287,6 +3314,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 875433324}
+  - component: {fileID: 875433325}
   m_Layer: 5
   m_Name: EnergyBar
   m_TagString: Untagged
@@ -3316,6 +3344,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &875433325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 875433323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 660b8f9ce84751048a5c7ce6795336d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  energyBarBlue: {fileID: 0}
+  energyBarRed: {fileID: 0}
 --- !u!1 &881804060
 GameObject:
   m_ObjectHideFlags: 0
@@ -4527,6 +4569,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1206879412}
+  - component: {fileID: 1206879413}
   m_Layer: 5
   m_Name: Energy Bar
   m_TagString: Untagged
@@ -4558,6 +4601,32 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -28.035}
   m_SizeDelta: {x: 0, y: 56.07}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1206879413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1206879411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fca44e5e4ac75224c81f5ed3dbd07fb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inactiveSlider: {fileID: 1549720351}
+  activeSliders:
+  - value: 1
+    bar: {fileID: 274023448}
+  - value: 2
+    bar: {fileID: 1783304552}
+  - value: 3
+    bar: {fileID: 453980036}
+  - value: 4
+    bar: {fileID: 787417228}
+  - value: 5
+    bar: {fileID: 430168235}
+  - value: 6
+    bar: {fileID: 276160461}
 --- !u!1 &1215626657
 GameObject:
   m_ObjectHideFlags: 0
