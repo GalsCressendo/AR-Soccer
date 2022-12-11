@@ -17,6 +17,7 @@ TagManager:
   - EnemyArea
   - PlayerArea
   - GameManager
+  - InactiveEnergy
   layers:
   - Default
   - TransparentFX
