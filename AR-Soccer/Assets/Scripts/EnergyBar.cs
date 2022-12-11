@@ -11,7 +11,7 @@ public class EnergyBar : MonoBehaviour
     [SerializeField] Slider inactiveSlider;
 
     public List<GameObject> activeSliders;
-    bool addValue = true;
+    bool addValue = false;
     int targetValue = 1;
     public int activePoints = 0;
 
@@ -38,7 +38,6 @@ public class EnergyBar : MonoBehaviour
     {
         inactiveSlider.value -= cost;
         int targetPoint = activePoints - cost;
-        Debug.Log("Target Point:" + targetPoint);
         for(int i=activePoints; i > targetPoint;i--)
         {
             Debug.Log(i-1);
@@ -48,6 +47,24 @@ public class EnergyBar : MonoBehaviour
 
         activePoints -= cost;
         targetValue -= cost;
+    }
+
+    public void ResetEnergyBar()
+    {
+        addValue = false;
+        targetValue = 1;
+        activePoints = 0;
+        inactiveSlider.value = activePoints;
+        foreach(GameObject bar in activeSliders)
+        {
+            bar.SetActive(false);
+        }
+
+    }
+
+    public void StartEnergyBar()
+    {
+        addValue = true;
     }
 
 

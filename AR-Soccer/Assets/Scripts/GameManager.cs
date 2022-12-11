@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     const string ENEMY_AREA_TAG = "EnemyArea";
     const string ATTACKER_TAG = "Attacker";
     const string DEFENDER_TAG = "Defender";
+    const string BALL_TAG = "Ball";
     const int ATTACKER_SPAWN_COST = 2;
     const int DEFENDER_SPAWN_COST = 3;
     const float SPAWN_TIME = 0.5f;
@@ -198,6 +199,14 @@ public class GameManager : MonoBehaviour
     {
         statePopUp.transform.gameObject.SetActive(true);
         gameIsActive = false;
+
+        //Destroy ball if exist
+        if (GameObject.FindGameObjectWithTag(BALL_TAG))
+        {
+            Destroy(GameObject.FindGameObjectWithTag(BALL_TAG));
+        }
+
+
         if (state == GameState.PLAYER_ATTACK_STATE)
         {
             statePopUp.ShowPlayerAttack();
@@ -206,6 +215,9 @@ public class GameManager : MonoBehaviour
         {
             statePopUp.ShowEnemyAttack();
         }
+
+        energyBarEnemy.ResetEnergyBar();
+        energyBarPlayer.ResetEnergyBar();
 
         Invoke("DisableStatePopUp", STATE_POP_UP_TIME);
     }
@@ -216,6 +228,9 @@ public class GameManager : MonoBehaviour
         SpawnBall();
         statePopUp.transform.gameObject.SetActive(false);
         timer.ResetTime();
+
+        energyBarEnemy.StartEnergyBar();
+        energyBarPlayer.StartEnergyBar();
     }
 
     public void SwitchGameState()
