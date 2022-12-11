@@ -230,6 +230,8 @@ MonoBehaviour:
   highlight: {fileID: 9185599499218068807}
   haveBall: 0
   isCaptured: 0
+  isReceiving: 0
+  unitContainer: {fileID: 0}
 --- !u!114 &1911405282485796080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -272,7 +274,7 @@ GameObject:
   - component: {fileID: 7879835948888094508}
   m_Layer: 0
   m_Name: Highlight
-  m_TagString: Detection
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

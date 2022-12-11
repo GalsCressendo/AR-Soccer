@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Defender : MonoBehaviour
 {
-
+    const string GAME_MANAGER_TAG = "GameManager";
     const float chaseAttackerSpeed = 1.0f;
     const float returnSpeed = 2.0f;
     const float inactiveDuration = 4.0f;
@@ -30,38 +30,41 @@ public class Defender : MonoBehaviour
 
     private void Update()
     {
-        if (isSpawned)
+        if (GameObject.FindGameObjectWithTag(GAME_MANAGER_TAG).GetComponent<GameManager>().gameIsActive)
         {
-            material.color = new Color(initialColor.r, initialColor.g, initialColor.b, 0.5f);
-        }
-        else
-        {
-            if (attacker != null)
-            {
-                var step = chaseAttackerSpeed * Time.deltaTime;
-                transform.position = Vector3.MoveTowards(transform.position, attacker.position, step);
-
-                if (Vector3.Distance(transform.position, attacker.position) < 0.001f)
-                {
-                    attacker.GetComponent<Attacker>().PassBall();
-                    attacker = null;
-                    isActive = false;
-                    detection.SetActive(false);
-                }
-                else if (!attacker.gameObject.activeSelf) //if targeted attacker already reach goal before captured
-                {
-                    Invoke("ReturnPosition", inactiveDuration);
-                }
-            }
-
-            if (!isActive)
+            if (isSpawned)
             {
                 material.color = new Color(initialColor.r, initialColor.g, initialColor.b, 0.5f);
-                Invoke("ReturnPosition", inactiveDuration);
-                
+            }
+            else
+            {
+                if (attacker != null)
+                {
+                    var step = chaseAttackerSpeed * Time.deltaTime;
+                    transform.position = Vector3.MoveTowards(transform.position, attacker.position, step);
+
+                    if (Vector3.Distance(transform.position, attacker.position) < 0.001f)
+                    {
+                        attacker.GetComponent<Attacker>().PassBall();
+                        attacker = null;
+                        isActive = false;
+                        detection.SetActive(false);
+                    }
+                    else if (!attacker.gameObject.activeSelf) //if targeted attacker already reach goal before captured
+                    {
+                        Invoke("ReturnPosition", inactiveDuration);
+                    }
+                }
+
+                if (!isActive)
+                {
+                    material.color = new Color(initialColor.r, initialColor.g, initialColor.b, 0.5f);
+                    Invoke("ReturnPosition", inactiveDuration);
+
+                }
             }
         }
-        
+               
     }
 
     public void ChaseAttacker(Transform attacker)
