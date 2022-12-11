@@ -1229,6 +1229,8 @@ MonoBehaviour:
   gameIsActive: 0
   scoreManager: {fileID: 329393710}
   resultPopUp: {fileID: 310476983}
+  playerStateText: {fileID: 2119152961}
+  enemyStateText: {fileID: 536164318}
   state: 1
 --- !u!114 &329393710
 MonoBehaviour:
