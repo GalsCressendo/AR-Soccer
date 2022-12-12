@@ -6,7 +6,10 @@ public class Ball : MonoBehaviour
 {
     public bool isAttached = false;
     Transform target = null;
-    const float speed = 1.5f;
+    const float PASS_SPEED = 1.5f;
+    const float ROTATE_SPEED = 100f;
+    const float ROTATE_ANGLE = 80f;
+    const string PLAYER_TAG = "Player";
 
     public void SetAttached()
     {
@@ -17,7 +20,7 @@ public class Ball : MonoBehaviour
     {
         if (target != null)
         {
-            var step = speed * Time.deltaTime;
+            var step = PASS_SPEED * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, target.position, step);
 
             if (Vector3.Distance(transform.position, target.position) < 0.4f)
@@ -32,10 +35,29 @@ public class Ball : MonoBehaviour
                 target = null;
             }
         }
+
+        if (isAttached)
+        {
+            RotateBall();
+        }
+
     }
 
     public void PassBallToNearest(Transform target)
     {
         this.target = target;
+    }
+
+    private void RotateBall()
+    {
+        if(transform.parent.parent.tag == PLAYER_TAG)
+        {
+            transform.Rotate(new Vector3(ROTATE_ANGLE, 0, 0), ROTATE_SPEED * Time.deltaTime);
+        }
+        else
+        {
+            transform.Rotate(new Vector3(-ROTATE_ANGLE, 0, 0), ROTATE_SPEED * Time.deltaTime);
+        }
+       
     }
 }
