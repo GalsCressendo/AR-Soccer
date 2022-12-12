@@ -17,9 +17,7 @@ public class Attacker : MonoBehaviour
     Transform goalTarget;
 
     [SerializeField] Renderer surfaceRenderer;
-    [SerializeField] Renderer boneRenderer;
-    Color surfaceActiveColor;
-    Color boneActiveColor;
+    Material activeMaterial;
 
     public GameObject highlight;
 
@@ -34,8 +32,7 @@ public class Attacker : MonoBehaviour
     {
         goalTarget = GameObject.FindGameObjectWithTag(attributes.GOAL_TAG).transform;
 
-        surfaceActiveColor = surfaceRenderer.material.color;
-        boneActiveColor = boneRenderer.material.color;
+        activeMaterial = surfaceRenderer.material;
 
         isSpawned = true;
     }
@@ -46,8 +43,7 @@ public class Attacker : MonoBehaviour
         {
             if (isSpawned)
             {
-                surfaceRenderer.material.color = new Color(surfaceActiveColor.r, surfaceActiveColor.g, surfaceActiveColor.b, 0.5f);
-                boneRenderer.material.color = new Color(boneActiveColor.r, boneActiveColor.g, boneActiveColor.b, 0.5f);
+                SetInactiveColor();
             }
             else
             {
@@ -107,8 +103,7 @@ public class Attacker : MonoBehaviour
                         //Add win score for attacker
                     }
 
-                    surfaceRenderer.material.color = surfaceActiveColor;
-                    boneRenderer.material.color = boneActiveColor;
+                    SetActiveColor();
                 }
 
                 //if attacker is captured
@@ -150,8 +145,7 @@ public class Attacker : MonoBehaviour
         {
             isCaptured = true;
             highlight.SetActive(false);
-            surfaceRenderer.material.color = new Color(surfaceActiveColor.r, surfaceActiveColor.g, surfaceActiveColor.b, 0.5f);
-            boneRenderer.material.color = new Color(boneActiveColor.r, boneActiveColor.g, boneActiveColor.b, 0.5f);
+            SetInactiveColor();
 
             var nearestDistance = float.MaxValue;
             Transform nearestTransform = null;
@@ -186,16 +180,24 @@ public class Attacker : MonoBehaviour
 
     private void ReactiveAfterCaptured()
     {
-        surfaceRenderer.material.color = surfaceActiveColor;
-        boneRenderer.material.color = boneActiveColor;
+        SetActiveColor();
         isCaptured = false;
     }
 
     public void ReactiveAfterSpawn()
     {
-        surfaceRenderer.material.color = surfaceActiveColor;
-        boneRenderer.material.color = boneActiveColor;
+        SetActiveColor();
         isSpawned = false;
+    }
+
+    private void SetActiveColor()
+    {
+        surfaceRenderer.material = activeMaterial;
+    }
+
+    private void SetInactiveColor()
+    {
+        surfaceRenderer.material = attributes.inactiveMaterial;
     }
 
     private void OnDestroy()

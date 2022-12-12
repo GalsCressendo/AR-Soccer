@@ -394,7 +394,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attributes: {fileID: 11400000, guid: d3d5d9706de70404696a4f4d4ee32266, type: 2}
   surfaceRenderer: {fileID: 5404216057984910594}
-  boneRenderer: {fileID: 694114272790654879}
   highlight: {fileID: 1887413321978563475}
   haveBall: 0
   isCaptured: 0
@@ -414,7 +413,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   detection: {fileID: 1887413322109405903}
   surfaceRenderer: {fileID: 5404216057984910594}
-  boneRenderer: {fileID: 694114272790654879}
+  attributes: {fileID: 11400000, guid: d3d5d9706de70404696a4f4d4ee32266, type: 2}
 --- !u!1 &1742420340103156583
 GameObject:
   m_ObjectHideFlags: 0
@@ -529,7 +528,7 @@ MeshRenderer:
   m_GameObject: {fileID: 1887413321978563475}
   m_Enabled: 1
   m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
@@ -614,7 +613,7 @@ MeshRenderer:
   m_GameObject: {fileID: 1887413322109405903}
   m_Enabled: 1
   m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
@@ -658,7 +657,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.42355767
+  m_Radius: 0.49633747
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &7345979843914786044
 MonoBehaviour:

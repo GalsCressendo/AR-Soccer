@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GOAL_TAG: Goal_Red
   FENCE_TAG: Fence_Red
+  inactiveMaterial: {fileID: 2100000, guid: 9934c9e3b4ca9544c97713b265a0ced7, type: 2}

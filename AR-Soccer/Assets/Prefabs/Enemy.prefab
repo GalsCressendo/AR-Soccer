@@ -52,7 +52,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1852f50f4eab5304688a7c8425f3a155, type: 2}
+  - {fileID: 2100000, guid: b0e22b597a3a9994ba6dacebf8bb05bc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1616,7 +1616,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attributes: {fileID: 11400000, guid: 57f75483d2ec69c46b130c2d83c5f974, type: 2}
   surfaceRenderer: {fileID: 1026050051262754043}
-  boneRenderer: {fileID: 7930971653287431900}
   highlight: {fileID: 6587067608234462785}
   haveBall: 0
   isCaptured: 0
@@ -1636,7 +1635,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   detection: {fileID: 6587067609482414693}
   surfaceRenderer: {fileID: 1026050051262754043}
-  boneRenderer: {fileID: 7930971653287431900}
+  attributes: {fileID: 11400000, guid: 57f75483d2ec69c46b130c2d83c5f974, type: 2}
 --- !u!1 &6446574578944465734
 GameObject:
   m_ObjectHideFlags: 0
@@ -1880,7 +1879,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.42355767
+  m_Radius: 0.49633747
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2256656498694376532
 MonoBehaviour:
