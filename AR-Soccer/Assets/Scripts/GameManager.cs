@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     const float SPAWN_TIME = 0.5f;
     const float STATE_POP_UP_TIME = 1f;
     const int TOTAL_MATCH = 5;
+    const string RUN_ANIM_PARAM = "isRunning";
 
     [SerializeField] List<Camera> cameras;
 
@@ -203,7 +204,6 @@ public class GameManager : MonoBehaviour
     private void EnableStatePopUp()
     {
         statePopUp.transform.gameObject.SetActive(true);
-        gameIsActive = false;
 
         //Destroy ball if exist
         if (GameObject.FindGameObjectWithTag(BALL_TAG))
@@ -241,12 +241,11 @@ public class GameManager : MonoBehaviour
     public void SwitchGameState()
     {
         matchCount += 1;
+        gameIsActive = false;
 
         if (matchCount <= TOTAL_MATCH)
         {
             gameIsActive = false;
-            Invoke("ClearStage", 3f);
-
             if (state == GameState.PLAYER_ATTACK_STATE)
             {
                 state = GameState.PLAYER_DEFENSE_STATE;
@@ -256,7 +255,8 @@ public class GameManager : MonoBehaviour
                 state = GameState.PLAYER_ATTACK_STATE;
             }
 
-            Invoke("EnableStatePopUp", 3f);
+            SetAnimationsToIdle();
+            Invoke("ClearStage", 3f);
         }
         else if (matchCount > TOTAL_MATCH)
         {
@@ -276,6 +276,8 @@ public class GameManager : MonoBehaviour
         {
             Destroy(obj);
         }
+
+        EnableStatePopUp();
     }
 
     private void SetUnitAttackState(GameObject unit, bool isAttacking)
@@ -376,6 +378,19 @@ public class GameManager : MonoBehaviour
             resultPopUp.SetPlayerWinner();
         }
 
+    }
+
+    private void SetAnimationsToIdle()
+    {
+        foreach(Transform obj in playerContainer.transform)
+        {
+            obj.GetComponent<Animator>().SetBool(RUN_ANIM_PARAM, false);
+        }
+
+        foreach (Transform obj in enemyContainer.transform)
+        {
+            obj.GetComponent<Animator>().SetBool(RUN_ANIM_PARAM, false);
+        }
     }
 
 }
