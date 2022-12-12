@@ -6,6 +6,7 @@ using TMPro;
 public class ResultPopUp : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI resultText;
+    [SerializeField] GameObject resultButton;
 
     public void SetPlayerWinner()
     {
@@ -26,5 +27,6 @@ public class ResultPopUp : MonoBehaviour
         string result = "DRAW";
         resultText.text = result;
         resultText.color = Color.black;
+        resultButton.SetActive(false);
     }
 }

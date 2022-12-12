@@ -7,6 +7,7 @@ public class SceneLoader
 {
     const string MAIN_SCENE_NAME = "Main";
     const string PENALTY_SCENE_NAME = "PenaltyGame";
+    const string START_MENU_SCENE_NAME = "StartMenu";
 
     public void SwitchToMainGame()
     {
@@ -16,5 +17,10 @@ public class SceneLoader
     public void SwitchToPenaltyGame()
     {
         SceneManager.LoadScene(PENALTY_SCENE_NAME);
+    }
+
+    public void SwitchToStartMenuGame()
+    {
+        SceneManager.LoadScene(START_MENU_SCENE_NAME);
     }
 }
