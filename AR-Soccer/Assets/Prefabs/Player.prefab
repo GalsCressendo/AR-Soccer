@@ -399,6 +399,7 @@ MonoBehaviour:
   isCaptured: 0
   isReceiving: 0
   unitContainer: {fileID: 0}
+  animator: {fileID: 1887413323404333788}
 --- !u!114 &9048735700621553515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -414,6 +415,7 @@ MonoBehaviour:
   detection: {fileID: 1887413322109405903}
   surfaceRenderer: {fileID: 5404216057984910594}
   attributes: {fileID: 11400000, guid: d3d5d9706de70404696a4f4d4ee32266, type: 2}
+  animator: {fileID: 1887413323404333788}
 --- !u!1 &1742420340103156583
 GameObject:
   m_ObjectHideFlags: 0

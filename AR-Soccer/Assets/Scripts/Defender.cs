@@ -1,13 +1,12 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Defender : MonoBehaviour
 {
     const string GAME_MANAGER_TAG = "GameManager";
-    const float chaseAttackerSpeed = 1.0f;
-    const float returnSpeed = 2.0f;
-    const float inactiveDuration = 4.0f;
+    const float CHASE_ATTACKER_SPEED = 1.0f;
+    const float RETURN_SPEED = 2.0f;
+    const float INACTIVE_DURATION = 4.0f;
 
     bool isActive = true;
     bool isSpawned = false;
@@ -21,6 +20,9 @@ public class Defender : MonoBehaviour
     Material activeMaterial;
 
     public UnitAttributes attributes;
+
+    [SerializeField] private Animator animator;
+    const string RUN_ANIM_PARAM = "isRunning";
 
     private void Awake()
     {
@@ -43,32 +45,32 @@ public class Defender : MonoBehaviour
             {
                 if (attacker != null)
                 {
-                    var step = chaseAttackerSpeed * Time.deltaTime;
-                    transform.position = Vector3.MoveTowards(transform.position, attacker.position, step);
-                    SetActiveColor();
+                    if (isActive)
+                    {
+                        var step = CHASE_ATTACKER_SPEED * Time.deltaTime;
+                        transform.position = Vector3.MoveTowards(transform.position, attacker.position, step);
+                        SetActiveColor();
+                        PlayRunningAnim(true);
+                    }
+
 
                     if (Vector3.Distance(transform.position, attacker.position) < 0.001f)
                     {
                         attacker.GetComponent<Attacker>().PassBall();
-                        attacker = null;
                         isActive = false;
                         detection.SetActive(false);
+                        PlayRunningAnim(false);
+                        StartCoroutine(ReturnPosition());
                     }
                     else if (!attacker.gameObject.activeSelf) //if targeted attacker already reach goal before captured
                     {
-                        Invoke("ReturnPosition", inactiveDuration);
+                        StartCoroutine(ReturnPosition());
                     }
                 }
 
-                if (!isActive)
-                {
-                    SetInactiveColor();
-                    Invoke("ReturnPosition", inactiveDuration);
-
-                }
             }
         }
-               
+
     }
 
     public void ChaseAttacker(Transform attacker)
@@ -80,25 +82,32 @@ public class Defender : MonoBehaviour
                 this.attacker = attacker;
             }
         }
-        
+
     }
 
-    public void ReturnPosition()
+    private IEnumerator ReturnPosition()
     {
-        var step = returnSpeed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, initialPosition, step);
+        SetInactiveColor();
+        yield return new WaitForSeconds(INACTIVE_DURATION);
 
-        if (Vector3.Distance(transform.position, initialPosition) < 0.001f)
+        var step = RETURN_SPEED * Time.deltaTime;
+        transform.position = Vector3.MoveTowards(transform.position, initialPosition, step);
+        PlayRunningAnim(true);
+
+        if (Vector3.Distance(transform.position, initialPosition) < 0.01f)
         {
-            SetActive();
+            SetWaitingState();
         }
+
     }
 
-    public void SetActive()
+    public void SetWaitingState()
     {
         SetActiveColor();
         isActive = true;
         detection.SetActive(true);
+        PlayRunningAnim(false);
+        attacker = null;
     }
 
     public void ReactiveAfterSpawn()
@@ -118,5 +127,9 @@ public class Defender : MonoBehaviour
         surfaceRenderer.material = attributes.inactiveMaterial;
     }
 
+    private void PlayRunningAnim(bool isRunning)
+    {
+        animator.SetBool(RUN_ANIM_PARAM, isRunning);
+    }
 
 }

@@ -28,6 +28,9 @@ public class Attacker : MonoBehaviour
 
     public UnitContainer unitContainer;
 
+    [SerializeField] private Animator animator;
+    const string RUN_ANIM_PARAM = "isRunning";
+
     private void Awake()
     {
         goalTarget = GameObject.FindGameObjectWithTag(attributes.GOAL_TAG).transform;
@@ -88,27 +91,28 @@ public class Attacker : MonoBehaviour
                         transform.position += new Vector3(0, 0, -carryBallSpeed) * Time.deltaTime;
                     }
 
+                    PlayRunningAnim(true);
+
                 }
 
+                //if receiving a ball
+                if (isReceiving)
+                {
+                    StartCoroutine(ReceivingBall());
+                }
 
                 //If the attacker carry a ball
                 if (haveBall)
                 {
                     highlight.SetActive(true);
                     MoveTowardsTarget(goalTarget, carryBallSpeed);
-
-                    if(Vector3.Distance(transform.position, goalTarget.position) < 0.3f)
-                    {
-                        Destroy(gameObject);
-                        //Add win score for attacker
-                    }
-
                     SetActiveColor();
                 }
 
                 //if attacker is captured
                 if (isCaptured)
                 {
+                    PlayRunningAnim(false);
                     Invoke("ReactiveAfterCaptured", reactiveTime);
                 }
 
@@ -121,6 +125,7 @@ public class Attacker : MonoBehaviour
     {
         var step = speed * Time.deltaTime;
         transform.position = Vector3.MoveTowards(transform.position, target.position, step);
+        PlayRunningAnim(true);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -203,6 +208,17 @@ public class Attacker : MonoBehaviour
     private void OnDestroy()
     {
         unitContainer.GetComponent<UnitContainer>().units.Remove(gameObject);
+    }
+
+    private void PlayRunningAnim(bool isRunning)
+    {
+        animator.SetBool(RUN_ANIM_PARAM, isRunning);
+    }
+
+    private IEnumerator ReceivingBall()
+    {
+        PlayRunningAnim(false);
+        yield return new WaitUntil(() => isReceiving == false);
     }
 
 
