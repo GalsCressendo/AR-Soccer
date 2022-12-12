@@ -18,6 +18,7 @@ public class Defender : MonoBehaviour
 
     Transform attacker;
     public GameObject detection;
+    [SerializeField] GameObject indicator;
 
     [SerializeField] Renderer surfaceRenderer;
     Material activeMaterial;
@@ -149,6 +150,7 @@ public class Defender : MonoBehaviour
     {
         if (GameObject.FindGameObjectWithTag(GAME_MANAGER_TAG).GetComponent<GameManager>().gameIsActive)
         {
+            indicator.SetActive(true);
             animator.SetBool(RUN_ANIM_PARAM, true);
             animator.ResetTrigger(ATTACK_ANIM_PARAM);
         }
@@ -160,6 +162,7 @@ public class Defender : MonoBehaviour
 
         if (GameObject.FindGameObjectWithTag(GAME_MANAGER_TAG).GetComponent<GameManager>().gameIsActive)
         {
+            indicator.SetActive(false);
             animator.SetTrigger(ATTACK_ANIM_PARAM);
             animator.SetBool(RUN_ANIM_PARAM, false);
         }
@@ -169,6 +172,7 @@ public class Defender : MonoBehaviour
     private void RunToIdle()
     {
         animator.SetBool(RUN_ANIM_PARAM, false);
+        indicator.SetActive(false);
     }
 
 }

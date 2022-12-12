@@ -393,11 +393,13 @@ public class GameManager : MonoBehaviour
         foreach(Transform obj in playerContainer.transform)
         {
             obj.GetComponent<Animator>().SetBool(RUN_ANIM_PARAM, false);
+            obj.transform.Find("Indicator").gameObject.SetActive(false);
         }
 
         foreach (Transform obj in enemyContainer.transform)
         {
             obj.GetComponent<Animator>().SetBool(RUN_ANIM_PARAM, false);
+            obj.transform.Find("Indicator").gameObject.SetActive(false);
         }
     }
 
