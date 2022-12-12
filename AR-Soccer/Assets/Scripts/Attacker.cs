@@ -32,6 +32,7 @@ public class Attacker : MonoBehaviour
 
     [SerializeField] private Animator animator;
     const string RUN_ANIM_PARAM = "isRunning";
+    const string CAPTURED_ANIM_PARAM = "isCaptured";
 
     private void Awake()
     {
@@ -93,7 +94,7 @@ public class Attacker : MonoBehaviour
                         transform.position += new Vector3(0, 0, -carryBallSpeed) * Time.deltaTime;
                     }
 
-                    PlayRunningAnim(true);
+                    PlayRunningAnim();
 
                 }
 
@@ -114,7 +115,6 @@ public class Attacker : MonoBehaviour
                 //if attacker is captured
                 if (isCaptured)
                 {
-                    PlayRunningAnim(false);
                     Invoke("ReactiveAfterCaptured", reactiveTime);
                 }
 
@@ -127,8 +127,12 @@ public class Attacker : MonoBehaviour
     {
         var step = speed * Time.deltaTime;
         transform.position = Vector3.MoveTowards(transform.position, target.position, step);
-        RotateTowardsTarget(target.position);
-        PlayRunningAnim(true);
+        if (target.position != Vector3.zero)
+        {
+            RotateTowardsTarget(target.position);
+        }
+
+        PlayRunningAnim();
     }
 
     void RotateTowardsTarget(Vector3 target)
@@ -158,6 +162,7 @@ public class Attacker : MonoBehaviour
     {
         if (haveBall)
         {
+            animator.SetTrigger(CAPTURED_ANIM_PARAM);
             isCaptured = true;
             highlight.SetActive(false);
             SetInactiveColor();
@@ -220,15 +225,20 @@ public class Attacker : MonoBehaviour
         unitContainer.GetComponent<UnitContainer>().units.Remove(gameObject);
     }
 
-    private void PlayRunningAnim(bool isRunning)
+    private void PlayRunningAnim()
     {
-        animator.SetBool(RUN_ANIM_PARAM, isRunning);
+        animator.SetTrigger(RUN_ANIM_PARAM);
     }
 
     private IEnumerator ReceivingBall()
     {
-        PlayRunningAnim(false);
+        RunToIdle();
         yield return new WaitUntil(() => isReceiving == false);
+    }
+
+    private void RunToIdle()
+    {
+        animator.SetBool(RUN_ANIM_PARAM, false);
     }
 
 

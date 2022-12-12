@@ -11,6 +11,7 @@ public class Defender : MonoBehaviour
 
     bool isActive = true;
     bool isSpawned = false;
+    bool haveReturned = true;
 
     Vector3 initialPosition;
     Quaternion initialRotation;
@@ -25,6 +26,7 @@ public class Defender : MonoBehaviour
 
     [SerializeField] private Animator animator;
     const string RUN_ANIM_PARAM = "isRunning";
+    const string ATTACK_ANIM_PARAM = "isAttacking";
 
     private void Awake()
     {
@@ -54,21 +56,33 @@ public class Defender : MonoBehaviour
                         transform.position = Vector3.MoveTowards(transform.position, attacker.position, step);
                         RotateTowardsTarget(attacker.position);
                         SetActiveColor();
-                        PlayRunningAnim(true);
+                        PlayRunningAnim();
+
+                        if (Vector3.Distance(transform.position, attacker.position) < 0.5f)
+                        {
+                            attacker.GetComponent<Attacker>().PassBall();
+                            isActive = false;
+                            detection.SetActive(false);
+                            PlayAttackAnim();
+                            SetInactiveColor();
+                            StartCoroutine(ReturnPosition());
+                            attacker = null;
+
+                        }
                     }
+                   
+                }
+
+                if (!haveReturned)
+                {
+                    var step = RETURN_SPEED * Time.deltaTime;
+                    transform.position = Vector3.MoveTowards(transform.position, initialPosition, step);
+                    RotateTowardsTarget(initialPosition);
 
 
-                    if (Vector3.Distance(transform.position, attacker.position) < 0.001f)
+                    if (Vector3.Distance(transform.position, initialPosition) < 0.01f)
                     {
-                        attacker.GetComponent<Attacker>().PassBall();
-                        isActive = false;
-                        detection.SetActive(false);
-                        PlayRunningAnim(false);
-                        StartCoroutine(ReturnPosition());
-                    }
-                    else if (!attacker.gameObject.activeSelf) //if targeted attacker already reach goal before captured
-                    {
-                        StartCoroutine(ReturnPosition());
+                        SetWaitingState();
                     }
                 }
 
@@ -98,30 +112,20 @@ public class Defender : MonoBehaviour
 
     private IEnumerator ReturnPosition()
     {
-        SetInactiveColor();
         yield return new WaitForSeconds(INACTIVE_DURATION);
-
-        var step = RETURN_SPEED * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, initialPosition, step);
-        RotateTowardsTarget(initialPosition);
-        transform.rotation = initialRotation;
-
-        PlayRunningAnim(true);
-
-        if (Vector3.Distance(transform.position, initialPosition) < 0.01f)
-        {
-            SetWaitingState();
-        }
-
+        haveReturned = false;
+        PlayRunningAnim();
     }
 
     public void SetWaitingState()
     {
+        haveReturned = true;
         SetInactiveColor();
         isActive = true;
         detection.SetActive(true);
-        PlayRunningAnim(false);
         attacker = null;
+        RunToIdle();
+        transform.rotation = initialRotation;
     }
 
     public void ReactiveAfterSpawn()
@@ -141,9 +145,21 @@ public class Defender : MonoBehaviour
         surfaceRenderer.material = attributes.inactiveMaterial;
     }
 
-    private void PlayRunningAnim(bool isRunning)
+    private void PlayRunningAnim()
     {
-        animator.SetBool(RUN_ANIM_PARAM, isRunning);
+        animator.SetBool(RUN_ANIM_PARAM, true);
+        animator.ResetTrigger(ATTACK_ANIM_PARAM);
+    }
+
+    private void PlayAttackAnim()
+    {
+        animator.SetTrigger(ATTACK_ANIM_PARAM);
+        animator.SetBool(RUN_ANIM_PARAM, false);
+    }
+
+    private void RunToIdle()
+    {
+        animator.SetBool(RUN_ANIM_PARAM, false);
     }
 
 }
