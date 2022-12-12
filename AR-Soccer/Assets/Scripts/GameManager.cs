@@ -242,10 +242,10 @@ public class GameManager : MonoBehaviour
     {
         matchCount += 1;
         gameIsActive = false;
+        SetAnimationsToIdle();
 
         if (matchCount <= TOTAL_MATCH)
         {
-            gameIsActive = false;
             if (state == GameState.PLAYER_ATTACK_STATE)
             {
                 state = GameState.PLAYER_DEFENSE_STATE;
@@ -255,8 +255,7 @@ public class GameManager : MonoBehaviour
                 state = GameState.PLAYER_ATTACK_STATE;
             }
 
-            SetAnimationsToIdle();
-            Invoke("ClearStage", 3f);
+            Invoke("ClearStage", 1.5f);
         }
         else if (matchCount > TOTAL_MATCH)
         {

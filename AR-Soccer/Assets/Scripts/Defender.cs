@@ -147,14 +147,23 @@ public class Defender : MonoBehaviour
 
     private void PlayRunningAnim()
     {
-        animator.SetBool(RUN_ANIM_PARAM, true);
-        animator.ResetTrigger(ATTACK_ANIM_PARAM);
+        if (GameObject.FindGameObjectWithTag(GAME_MANAGER_TAG).GetComponent<GameManager>().gameIsActive)
+        {
+            animator.SetBool(RUN_ANIM_PARAM, true);
+            animator.ResetTrigger(ATTACK_ANIM_PARAM);
+        }
+
     }
 
     private void PlayAttackAnim()
     {
-        animator.SetTrigger(ATTACK_ANIM_PARAM);
-        animator.SetBool(RUN_ANIM_PARAM, false);
+
+        if (GameObject.FindGameObjectWithTag(GAME_MANAGER_TAG).GetComponent<GameManager>().gameIsActive)
+        {
+            animator.SetTrigger(ATTACK_ANIM_PARAM);
+            animator.SetBool(RUN_ANIM_PARAM, false);
+        }
+
     }
 
     private void RunToIdle()
