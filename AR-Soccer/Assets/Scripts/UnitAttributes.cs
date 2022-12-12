@@ -7,4 +7,5 @@ public class UnitAttributes : ScriptableObject
 {
     public string GOAL_TAG;
     public string FENCE_TAG;
+    public Material inactiveMaterial;
 }

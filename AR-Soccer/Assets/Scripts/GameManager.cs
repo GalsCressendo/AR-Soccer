@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     const float SPAWN_TIME = 0.5f;
     const float STATE_POP_UP_TIME = 1f;
     const int TOTAL_MATCH = 5;
+    const string RUN_ANIM_PARAM = "isRunning";
 
     [SerializeField] List<Camera> cameras;
 
@@ -199,16 +200,15 @@ public class GameManager : MonoBehaviour
         areaSize.z = areaTransform.localScale.z * areaCollider.size.z;
 
         Vector3 randomPosition = new Vector3(Random.Range(-areaSize.x / 2, areaSize.x / 2), 0f, Random.Range(-areaSize.z / 2, areaSize.z / 2));
-        Vector3 spawnPosition = new Vector3(center.x + randomPosition.x, 0.1f, center.z + randomPosition.z);
+        Vector3 spawnPosition = new Vector3(center.x + randomPosition.x, 0.2f, center.z + randomPosition.z);
 
-        Instantiate(ballPrefab, spawnPosition, ballPrefab.transform.rotation);
+        GameObject ball = Instantiate(ballPrefab, spawnPosition, ballPrefab.transform.rotation);
 
     }
 
     private void EnableStatePopUp()
     {
         statePopUp.transform.gameObject.SetActive(true);
-        gameIsActive = false;
 
         //Destroy ball if exist
         if (GameObject.FindGameObjectWithTag(BALL_TAG))
@@ -246,12 +246,11 @@ public class GameManager : MonoBehaviour
     public void SwitchGameState()
     {
         matchCount += 1;
+        gameIsActive = false;
+        SetAnimationsToIdle();
 
         if (matchCount <= TOTAL_MATCH)
         {
-            gameIsActive = false;
-            ClearStage();
-
             if (state == GameState.PLAYER_ATTACK_STATE)
             {
                 state = GameState.PLAYER_DEFENSE_STATE;
@@ -265,7 +264,7 @@ public class GameManager : MonoBehaviour
                 enemyStateText.text = "Enemy (DEFENDER)";
             }
 
-            EnableStatePopUp();
+            Invoke("ClearStage", 1.5f);
         }
         else if (matchCount > TOTAL_MATCH)
         {
@@ -285,6 +284,8 @@ public class GameManager : MonoBehaviour
         {
             Destroy(obj);
         }
+
+        EnableStatePopUp();
     }
 
     private void SetUnitAttackState(GameObject unit, bool isAttacking)
@@ -385,6 +386,19 @@ public class GameManager : MonoBehaviour
             resultPopUp.SetPlayerWinner();
         }
 
+    }
+
+    private void SetAnimationsToIdle()
+    {
+        foreach(Transform obj in playerContainer.transform)
+        {
+            obj.GetComponent<Animator>().SetBool(RUN_ANIM_PARAM, false);
+        }
+
+        foreach (Transform obj in enemyContainer.transform)
+        {
+            obj.GetComponent<Animator>().SetBool(RUN_ANIM_PARAM, false);
+        }
     }
 
 }

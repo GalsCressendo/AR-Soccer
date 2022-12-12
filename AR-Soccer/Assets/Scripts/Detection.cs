@@ -10,9 +10,13 @@ public class Detection : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == ATTACKER_TAG)
+        if (GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().gameIsActive)
         {
-            unit.GetComponent<Defender>().ChaseAttacker(other.transform);
+            if (other.tag == ATTACKER_TAG)
+            {
+                unit.GetComponent<Defender>().ChaseAttacker(other.transform);
+            }
         }
+  
     }
 }

@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Attacker : MonoBehaviour
@@ -7,17 +6,19 @@ public class Attacker : MonoBehaviour
     const string BALL_TAG = "Ball";
     const string GAME_MANAGER_TAG = "GameManager";
     const string PLAYER_TAG = "Player";
-    public UnitAttributes attributes;
+    const float ROTATION_SPEED = 200;
+    const float CHASE_BALL_SPEED = 1.5f;
+    const float CARRY_BALL_SPEED = 0.75f;
+    const float REACTIVE_TIME = 2.5f;
 
-    const float chaseBallSpeed = 1.5f;
-    const float carryBallSpeed = 0.75f;
-    const float reactiveTime = 2.5f;
+    public UnitAttributes attributes;
 
     Transform ballTarget;
     Transform goalTarget;
+    Quaternion initialRotation;
 
-    Material material;
-    Color activeColor;
+    [SerializeField] Renderer surfaceRenderer;
+    Material activeMaterial;
 
     public GameObject highlight;
 
@@ -28,14 +29,16 @@ public class Attacker : MonoBehaviour
 
     public UnitContainer unitContainer;
 
+    [SerializeField] private Animator animator;
+    const string RUN_ANIM_PARAM = "isRunning";
+    const string CAPTURED_ANIM_PARAM = "isCaptured";
+
     private void Awake()
     {
         goalTarget = GameObject.FindGameObjectWithTag(attributes.GOAL_TAG).transform;
-
-        material = GetComponent<MeshRenderer>().material;
-        activeColor = material.color;
-
+        activeMaterial = surfaceRenderer.material;
         isSpawned = true;
+        initialRotation = transform.rotation;
     }
 
     private void Update()
@@ -44,7 +47,7 @@ public class Attacker : MonoBehaviour
         {
             if (isSpawned)
             {
-                material.color = new Color(activeColor.r, activeColor.g, activeColor.b, 0.5f);
+                SetInactiveColor();
             }
             else
             {
@@ -56,7 +59,7 @@ public class Attacker : MonoBehaviour
                         return;
                     }
 
-                    MoveTowardsTarget(ballTarget, chaseBallSpeed);
+                    MoveTowardsTarget(ballTarget, CHASE_BALL_SPEED);
 
                     if (Vector3.Distance(transform.position, ballTarget.position) < 0.3f)
                     {
@@ -80,57 +83,71 @@ public class Attacker : MonoBehaviour
 
                     }
 
-                    if(gameObject.transform.parent.tag == PLAYER_TAG)
+                    if (gameObject.transform.parent.tag == PLAYER_TAG)
                     {
-                        transform.position += new Vector3(0, 0, carryBallSpeed) * Time.deltaTime;
+                        transform.position += new Vector3(0, 0, CARRY_BALL_SPEED) * Time.deltaTime;
                     }
                     else
                     {
-                        transform.position += new Vector3(0, 0, -carryBallSpeed) * Time.deltaTime;
+                        transform.position +=  new Vector3(0, 0, -CARRY_BALL_SPEED) * Time.deltaTime;
                     }
+
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, initialRotation, ROTATION_SPEED * Time.deltaTime);
+                    PlayRunningAnim();
 
                 }
 
+                //if receiving a ball
+                if (isReceiving)
+                {
+                    StartCoroutine(ReceivingBall());
+                }
 
                 //If the attacker carry a ball
                 if (haveBall)
                 {
                     highlight.SetActive(true);
-                    MoveTowardsTarget(goalTarget, carryBallSpeed);
-
-                    if(Vector3.Distance(transform.position, goalTarget.position) < 0.3f)
-                    {
-                        Destroy(gameObject);
-                        //Add win score for attacker
-                    }
-
-                    material.color = activeColor;
+                    MoveTowardsTarget(goalTarget, CARRY_BALL_SPEED);
+                    SetActiveColor();
                 }
 
                 //if attacker is captured
                 if (isCaptured)
                 {
-                    Invoke("ReactiveAfterCaptured", reactiveTime);
+                    Invoke("ReactiveAfterCaptured", REACTIVE_TIME);
                 }
 
             }
         }
-       
+
     }
 
     void MoveTowardsTarget(Transform target, float speed)
     {
         var step = speed * Time.deltaTime;
         transform.position = Vector3.MoveTowards(transform.position, target.position, step);
+        if (target.position != Vector3.zero)
+        {
+            RotateTowardsTarget(target.position);
+        }
+
+        PlayRunningAnim();
+    }
+
+    void RotateTowardsTarget(Vector3 target)
+    {
+        Vector3 direction = (target - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, ROTATION_SPEED * Time.deltaTime);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == attributes.FENCE_TAG)
+        if (other.tag == attributes.FENCE_TAG)
         {
             Destroy(gameObject);
         }
-        else if(other.tag == attributes.GOAL_TAG)
+        else if (other.tag == attributes.GOAL_TAG)
         {
             if (haveBall)
             {
@@ -144,15 +161,16 @@ public class Attacker : MonoBehaviour
     {
         if (haveBall)
         {
+            PlayCapturedAnim();
             isCaptured = true;
             highlight.SetActive(false);
-            material.color = new Color(activeColor.r, activeColor.g, activeColor.b, 0.5f);
+            SetInactiveColor();
 
             var nearestDistance = float.MaxValue;
             Transform nearestTransform = null;
-            foreach(Transform t in unitContainer.GetAllUnitTransform(gameObject.transform))
+            foreach (Transform t in unitContainer.GetAllUnitTransform(gameObject.transform))
             {
-                if(Vector3.Distance(transform.position, t.position) < nearestDistance)
+                if (Vector3.Distance(transform.position, t.position) < nearestDistance)
                 {
                     nearestDistance = Vector3.Distance(transform.position, t.position);
                     nearestTransform = t;
@@ -181,19 +199,51 @@ public class Attacker : MonoBehaviour
 
     private void ReactiveAfterCaptured()
     {
-        material.color = activeColor;
+        SetActiveColor();
         isCaptured = false;
     }
 
     public void ReactiveAfterSpawn()
     {
-        material.color = activeColor;
+        SetActiveColor();
         isSpawned = false;
+    }
+
+    private void SetActiveColor()
+    {
+        surfaceRenderer.material = activeMaterial;
+    }
+
+    private void SetInactiveColor()
+    {
+        surfaceRenderer.material = attributes.inactiveMaterial;
     }
 
     private void OnDestroy()
     {
         unitContainer.GetComponent<UnitContainer>().units.Remove(gameObject);
+    }
+
+    private void PlayRunningAnim()
+    {
+        animator.SetBool(RUN_ANIM_PARAM, true);
+        animator.ResetTrigger(CAPTURED_ANIM_PARAM);
+    }
+
+    private void PlayCapturedAnim()
+    {
+        animator.SetTrigger(CAPTURED_ANIM_PARAM);
+    }
+
+    private IEnumerator ReceivingBall()
+    {
+        RunToIdle();
+        yield return new WaitUntil(() => isReceiving == false);
+    }
+
+    private void RunToIdle()
+    {
+        animator.SetBool(RUN_ANIM_PARAM, false);
     }
 
 
