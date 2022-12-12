@@ -7,12 +7,13 @@ public class Defender : MonoBehaviour
     const float CHASE_ATTACKER_SPEED = 1.0f;
     const float RETURN_SPEED = 2.0f;
     const float INACTIVE_DURATION = 4.0f;
-    const float ROTATION_SPEED = 700;
+    const float ROTATION_SPEED = 200;
 
     bool isActive = true;
     bool isSpawned = false;
 
     Vector3 initialPosition;
+    Quaternion initialRotation;
 
     Transform attacker;
     public GameObject detection;
@@ -28,6 +29,7 @@ public class Defender : MonoBehaviour
     private void Awake()
     {
         initialPosition = transform.position;
+        initialRotation = transform.rotation;
 
         activeMaterial = surfaceRenderer.material;
 
@@ -50,6 +52,7 @@ public class Defender : MonoBehaviour
                     {
                         var step = CHASE_ATTACKER_SPEED * Time.deltaTime;
                         transform.position = Vector3.MoveTowards(transform.position, attacker.position, step);
+                        RotateTowardsTarget(attacker.position);
                         SetActiveColor();
                         PlayRunningAnim(true);
                     }
@@ -86,6 +89,13 @@ public class Defender : MonoBehaviour
 
     }
 
+    void RotateTowardsTarget(Vector3 target)
+    {
+        Vector3 direction = (target - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, ROTATION_SPEED * Time.deltaTime);
+    }
+
     private IEnumerator ReturnPosition()
     {
         SetInactiveColor();
@@ -93,6 +103,9 @@ public class Defender : MonoBehaviour
 
         var step = RETURN_SPEED * Time.deltaTime;
         transform.position = Vector3.MoveTowards(transform.position, initialPosition, step);
+        RotateTowardsTarget(initialPosition);
+        transform.rotation = initialRotation;
+
         PlayRunningAnim(true);
 
         if (Vector3.Distance(transform.position, initialPosition) < 0.01f)
