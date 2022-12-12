@@ -7,6 +7,7 @@ public class Defender : MonoBehaviour
     const float CHASE_ATTACKER_SPEED = 1.0f;
     const float RETURN_SPEED = 2.0f;
     const float INACTIVE_DURATION = 4.0f;
+    const float ROTATION_SPEED = 700;
 
     bool isActive = true;
     bool isSpawned = false;

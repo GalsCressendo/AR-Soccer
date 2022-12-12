@@ -196,7 +196,7 @@ public class GameManager : MonoBehaviour
         Vector3 randomPosition = new Vector3(Random.Range(-areaSize.x / 2, areaSize.x / 2), 0f, Random.Range(-areaSize.z / 2, areaSize.z / 2));
         Vector3 spawnPosition = new Vector3(center.x + randomPosition.x, 0.2f, center.z + randomPosition.z);
 
-        Instantiate(ballPrefab, spawnPosition, ballPrefab.transform.rotation);
+        GameObject ball = Instantiate(ballPrefab, spawnPosition, ballPrefab.transform.rotation);
 
     }
 

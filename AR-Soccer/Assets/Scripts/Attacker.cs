@@ -7,6 +7,8 @@ public class Attacker : MonoBehaviour
     const string BALL_TAG = "Ball";
     const string GAME_MANAGER_TAG = "GameManager";
     const string PLAYER_TAG = "Player";
+    const float ROTATION_SPEED = 200;
+
     public UnitAttributes attributes;
 
     const float chaseBallSpeed = 1.5f;
@@ -125,7 +127,15 @@ public class Attacker : MonoBehaviour
     {
         var step = speed * Time.deltaTime;
         transform.position = Vector3.MoveTowards(transform.position, target.position, step);
+        RotateTowardsTarget(target.position);
         PlayRunningAnim(true);
+    }
+
+    void RotateTowardsTarget(Vector3 target)
+    {
+        Vector3 direction = (target - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, ROTATION_SPEED * Time.deltaTime);
     }
 
     private void OnTriggerEnter(Collider other)
