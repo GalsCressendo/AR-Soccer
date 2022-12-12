@@ -66,5 +66,10 @@ public class EnergyBar : MonoBehaviour
         addValue = true;
     }
 
+    public void StopEnergyBar()
+    {
+        addValue = false;
+    }
+
 
 }
