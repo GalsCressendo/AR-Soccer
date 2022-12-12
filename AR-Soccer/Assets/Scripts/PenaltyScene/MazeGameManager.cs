@@ -15,7 +15,7 @@ public class MazeGameManager : MonoBehaviour
     [SerializeField] Timer timer;
     [SerializeField] GameObject player;
     [SerializeField] GameObject penaltyGamePopUp;
-
+    public bool gameIsActive = true;
 
     bool gameStart = false;
     float range = 3f;
@@ -83,6 +83,13 @@ public class MazeGameManager : MonoBehaviour
         timer.isTicking = false;
         resultPopUp.transform.gameObject.SetActive(true);
         resultPopUp.SetPlayerWinner();
+    }
+
+    public void PauseGame()
+    {
+        timer.isTicking = false;
+        gameIsActive = false;
+
     }
 
 }
