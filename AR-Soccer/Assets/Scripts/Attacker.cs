@@ -21,6 +21,7 @@ public class Attacker : MonoBehaviour
     Material activeMaterial;
 
     public GameObject highlight;
+    [SerializeField] GameObject indicator;
 
     public bool haveBall;
     public bool isCaptured;
@@ -227,12 +228,14 @@ public class Attacker : MonoBehaviour
 
     private void PlayRunningAnim()
     {
+        indicator.SetActive(true);
         animator.SetBool(RUN_ANIM_PARAM, true);
         animator.ResetTrigger(CAPTURED_ANIM_PARAM);
     }
 
     private void PlayCapturedAnim()
     {
+        indicator.SetActive(false);
         animator.SetTrigger(CAPTURED_ANIM_PARAM);
     }
 
@@ -245,6 +248,7 @@ public class Attacker : MonoBehaviour
     private void RunToIdle()
     {
         animator.SetBool(RUN_ANIM_PARAM, false);
+        indicator.SetActive(false);
     }
 
 
