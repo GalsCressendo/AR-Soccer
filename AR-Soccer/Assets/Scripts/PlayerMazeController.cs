@@ -21,20 +21,36 @@ public class PlayerMazeController : MonoBehaviour
 
     private void Update()
     {
-        if (GameObject.FindGameObjectWithTag(BALL_TAG) && !GameObject.FindGameObjectWithTag(BALL_TAG).GetComponent<Ball>().isAttached)
+        if (ballTarget == null)
+        {
+            if (GameObject.FindGameObjectWithTag(BALL_TAG))
+            {
+                ballTarget = GameObject.FindGameObjectWithTag(BALL_TAG).transform;
+            }
+        }
+        else if (ballTarget != null && !ballTarget.GetComponent<Ball>().isAttached)
         {
             animator.SetBool(RUNNING_ANIM_PARAM, true);
-            ballTarget = GameObject.FindGameObjectWithTag(BALL_TAG).transform;
-            if (!ballTarget.GetComponent<Ball>().isAttached)
+            agent.SetDestination(ballTarget.position);
+            if (Vector3.Distance(transform.position, ballTarget.position) < 0.05f)
             {
-                agent.SetDestination(ballTarget.position);
-                if(Vector3.Distance(transform.position, ballTarget.position) < 0.001f)
-                {
-                    ballTarget.GetComponent<Ball>().isAttached = true;
-                    Debug.Log("Have Arrived");
-                }
+                ballTarget.GetComponent<Ball>().isAttached = true;
+                ballTarget.transform.SetParent(gameObject.transform, true);
+                Debug.Log("Have Arrived");
             }
+        }
+        else if (ballTarget != null && ballTarget.GetComponent<Ball>().isAttached)
+        {
+            agent.SetDestination(GameObject.FindGameObjectWithTag(GOAL_TARGET).transform.position);
+        }
+    }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == GOAL_TARGET)
+        {
+            Debug.Log("PLAYER WIN!!!");
+            Destroy(gameObject);
         }
     }
 }
