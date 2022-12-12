@@ -100,6 +100,7 @@ public class Attacker : MonoBehaviour
                 //if receiving a ball
                 if (isReceiving)
                 {
+                    RotateTowardsTarget(GameObject.FindGameObjectWithTag(BALL_TAG).transform.position);
                     StartCoroutine(ReceivingBall());
                 }
 
