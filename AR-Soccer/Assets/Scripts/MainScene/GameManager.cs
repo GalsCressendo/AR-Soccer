@@ -13,9 +13,8 @@ public class GameManager : MonoBehaviour
     const int ATTACKER_SPAWN_COST = 2;
     const int DEFENDER_SPAWN_COST = 3;
     const float SPAWN_TIME = 0.5f;
-    const float STATE_POP_UP_TIME = 1f;
+    const float STATE_POP_UP_TIME = 2f;
     const int TOTAL_MATCH = 5;
-    const string RUN_ANIM_PARAM = "isRunning";
 
     [SerializeField] List<Camera> cameras;
 
@@ -39,7 +38,7 @@ public class GameManager : MonoBehaviour
     int matchCount = 1;
     [SerializeField] ScoreManager scoreManager;
     [SerializeField] ResultPopUp resultPopUp;
-
+    SceneLoader sceneLoader = new SceneLoader();
 
     public enum GameState
     {
@@ -247,7 +246,6 @@ public class GameManager : MonoBehaviour
     {
         matchCount += 1;
         gameIsActive = false;
-        SetAnimationsToIdle();
 
         if (matchCount <= TOTAL_MATCH)
         {
@@ -355,6 +353,11 @@ public class GameManager : MonoBehaviour
         SwitchGameState();
     }
 
+    public void DeclareDraw()
+    {
+        SwitchGameState();
+    }
+
     public void DeclareGameWinner()
     {
         state = GameState.NONE;
@@ -371,7 +374,7 @@ public class GameManager : MonoBehaviour
             if (isDraw)
             {
                 resultPopUp.SetResultDraw();
-                //TO DO: CREATE BONUS STAGE
+                Invoke("LoadPenaltyScene", 2f);
             }
             else
             {
@@ -388,19 +391,9 @@ public class GameManager : MonoBehaviour
 
     }
 
-    private void SetAnimationsToIdle()
+    private void LoadPenaltyScene()
     {
-        foreach(Transform obj in playerContainer.transform)
-        {
-            obj.GetComponent<Animator>().SetBool(RUN_ANIM_PARAM, false);
-            obj.transform.Find("Indicator").gameObject.SetActive(false);
-        }
-
-        foreach (Transform obj in enemyContainer.transform)
-        {
-            obj.GetComponent<Animator>().SetBool(RUN_ANIM_PARAM, false);
-            obj.transform.Find("Indicator").gameObject.SetActive(false);
-        }
+        sceneLoader.SwitchToPenaltyGame();
     }
 
 }

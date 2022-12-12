@@ -71,7 +71,7 @@ public class Defender : MonoBehaviour
 
                         }
                     }
-                   
+
                 }
 
                 if (!haveReturned)
@@ -160,12 +160,9 @@ public class Defender : MonoBehaviour
     private void PlayAttackAnim()
     {
 
-        if (GameObject.FindGameObjectWithTag(GAME_MANAGER_TAG).GetComponent<GameManager>().gameIsActive)
-        {
-            indicator.SetActive(false);
-            animator.SetTrigger(ATTACK_ANIM_PARAM);
-            animator.SetBool(RUN_ANIM_PARAM, false);
-        }
+        indicator.SetActive(false);
+        animator.SetTrigger(ATTACK_ANIM_PARAM);
+        animator.SetBool(RUN_ANIM_PARAM, false);
 
     }
 

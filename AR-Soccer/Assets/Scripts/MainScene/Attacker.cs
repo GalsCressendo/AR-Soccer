@@ -189,7 +189,7 @@ public class Attacker : MonoBehaviour
             }
             else //if there is no one to pass the ball
             {
-                GameObject.FindGameObjectWithTag(GAME_MANAGER_TAG).GetComponent<GameManager>().DeclareWinDefender();
+                GameObject.FindGameObjectWithTag(GAME_MANAGER_TAG).GetComponent<GameManager>().DeclareDraw();
                 Destroy(ballTarget.gameObject);
             }
 
@@ -228,9 +228,14 @@ public class Attacker : MonoBehaviour
 
     private void PlayRunningAnim()
     {
-        indicator.SetActive(true);
-        animator.SetBool(RUN_ANIM_PARAM, true);
-        animator.ResetTrigger(CAPTURED_ANIM_PARAM);
+
+        if (GameObject.FindGameObjectWithTag(GAME_MANAGER_TAG).GetComponent<GameManager>().gameIsActive)
+        {
+            indicator.SetActive(true);
+            animator.SetBool(RUN_ANIM_PARAM, true);
+            animator.ResetTrigger(CAPTURED_ANIM_PARAM);
+        }
+
     }
 
     private void PlayCapturedAnim()
