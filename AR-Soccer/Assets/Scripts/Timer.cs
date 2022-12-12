@@ -2,14 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Timer : MonoBehaviour
 {
     float matchTime = 140;
     float timeRemaining;
     public bool isTicking;
-    public GameManager gameManager;
     [SerializeField] TextMeshProUGUI countdownText;
+    const string MAIN_SCENE_NAME = "Main";
+    const string PENALTY_SCENE_NAME = "PenaltyGame";
+    const string GAME_MANAGER_TAG = "GameManager";
 
     private void Start()
     {
@@ -33,7 +36,17 @@ public class Timer : MonoBehaviour
             {
                 timeRemaining = 0;
                 isTicking = false;
-                gameManager.DeclareWinDefender();
+
+                Scene scene = SceneManager.GetActiveScene();
+                GameObject gameManager = GameObject.FindGameObjectWithTag(GAME_MANAGER_TAG);
+                if (scene.name == MAIN_SCENE_NAME)
+                {
+                    gameManager.GetComponent<GameManager>().DeclareWinDefender();
+                }
+                else if(scene.name == PENALTY_SCENE_NAME)
+                {
+                    gameManager.GetComponent<MazeGameManager>().DeclareEnemyWinner();
+                }
             }
         }
         

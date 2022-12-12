@@ -7,8 +7,9 @@ public class PlayerMazeController : MonoBehaviour
 {
     NavMeshAgent agent;
     const string BALL_TAG = "Ball";
-    const string GOAL_TARGET = "Goal_Red";
     const string RUNNING_ANIM_PARAM = "isRunning";
+    const string GAME_MANAGER_TAG = "GameManager";
+    const string GOAL_TARGET_TAG = "Goal_Red";
     Transform ballTarget = null;
     Animator animator;
 
@@ -36,21 +37,21 @@ public class PlayerMazeController : MonoBehaviour
             {
                 ballTarget.GetComponent<Ball>().isAttached = true;
                 ballTarget.transform.SetParent(gameObject.transform, true);
-                Debug.Log("Have Arrived");
             }
         }
         else if (ballTarget != null && ballTarget.GetComponent<Ball>().isAttached)
         {
-            agent.SetDestination(GameObject.FindGameObjectWithTag(GOAL_TARGET).transform.position);
+            agent.SetDestination(GameObject.FindGameObjectWithTag(GOAL_TARGET_TAG).transform.position);
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == GOAL_TARGET)
+        if(other.tag == GOAL_TARGET_TAG)
         {
-            Debug.Log("PLAYER WIN!!!");
+            GameObject.FindGameObjectWithTag(GAME_MANAGER_TAG).GetComponent<MazeGameManager>().DeclarePlayerWinner();
             Destroy(gameObject);
         }
     }
+
 }
