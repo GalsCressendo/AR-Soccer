@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
     int matchCount = 1;
     [SerializeField] ScoreManager scoreManager;
     [SerializeField] ResultPopUp resultPopUp;
-
+    SceneLoader sceneLoader = new SceneLoader();
 
     public enum GameState
     {
@@ -374,7 +374,7 @@ public class GameManager : MonoBehaviour
             if (isDraw)
             {
                 resultPopUp.SetResultDraw();
-                //TO DO: CREATE BONUS STAGE
+                Invoke("LoadPenaltyScene", 2f);
             }
             else
             {
@@ -389,6 +389,11 @@ public class GameManager : MonoBehaviour
             resultPopUp.SetPlayerWinner();
         }
 
+    }
+
+    private void LoadPenaltyScene()
+    {
+        sceneLoader.SwitchToPenaltyGame();
     }
 
 }
