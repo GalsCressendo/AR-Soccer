@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MainMenu : MonoBehaviour
+public class MainButtonManager : MonoBehaviour
 {
     SceneLoader sceneLoader = new SceneLoader();
     [SerializeField] GameManager gameManager;
@@ -29,5 +29,13 @@ public class MainMenu : MonoBehaviour
         gameManager.gameIsActive = true;
         popUpMenu.SetActive(false);
     }
-    
+
+    public void OnPauseButtonClick()
+    {
+        timer.isTicking = false;
+        popUpMenu.SetActive(true);
+        gameManager.gameIsActive = false;
+        energyBarRed.StopEnergyBar();
+        energyBarBlue.StopEnergyBar();
+    }
 }
