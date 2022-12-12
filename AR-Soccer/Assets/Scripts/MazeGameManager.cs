@@ -11,7 +11,7 @@ public class MazeGameManager : MonoBehaviour
     [SerializeField] GameObject ball;
     GameObject spawnedBall;
 
-    public float range = 10.0f;
+    public float range = 3f;
 
     private void Awake()
     {
