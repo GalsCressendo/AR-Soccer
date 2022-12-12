@@ -103,7 +103,7 @@ public class Defender : MonoBehaviour
 
     public void SetWaitingState()
     {
-        SetActiveColor();
+        SetInactiveColor();
         isActive = true;
         detection.SetActive(true);
         PlayRunningAnim(false);
