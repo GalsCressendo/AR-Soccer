@@ -12,6 +12,8 @@ public class AudioManager : MonoBehaviour
     public const string BALL_KICK_SFX = "BallKick";
     public const string APPLAUSE_SFX = "Applause";
     public const string HORN_SFX = "Horn";
+    public const string GOAL_SFX = "Goal";
+    public const string PUNCH_SFX = "Punch";
 
     private void Awake()
     {
@@ -37,6 +39,11 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        PlayAudio(BGM);
+    }
+
     public void PlayAudio(string name)
     {
         Sound sound = sounds.Find(s => s.name == name);
@@ -48,8 +55,15 @@ public class AudioManager : MonoBehaviour
         sound.source.Play();
     }
 
-    private void Start()
+    public float GetAudioDuration(string name)
     {
-        PlayAudio(BGM);
+        Sound sound = sounds.Find(s => s.name == name);
+        if (sound == null)
+        {
+            return 0;
+        }
+
+        return sound.clip.length;
     }
+
 }

@@ -155,14 +155,12 @@ public class Attacker : MonoBehaviour
         {
             if (haveBall)
             {
+                FindObjectOfType<AudioManager>().PlayAudio(AudioManager.GOAL_SFX);
                 GameObject.FindGameObjectWithTag(GAME_MANAGER_TAG).GetComponent<GameManager>().DeclareWinAttacker();
-                StartCoroutine(CreateConfettiEffect(other.transform));
+                CreateConfettiEffect(GameObject.FindGameObjectWithTag(attributes.GOAL_TAG).transform);
+            }
 
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
+            Destroy(gameObject);
 
         }
     }
@@ -194,6 +192,7 @@ public class Attacker : MonoBehaviour
             {
                 nearestTransform.GetComponent<Attacker>().isReceiving = true;
                 ballTarget.GetComponent<Ball>().PassBallToNearest(nearestTransform);
+                FindObjectOfType<AudioManager>().PlayAudio(AudioManager.BALL_KICK_SFX);
             }
             else //if there is no one to pass the ball
             {
@@ -264,13 +263,10 @@ public class Attacker : MonoBehaviour
         indicator.SetActive(false);
     }
 
-    private IEnumerator CreateConfettiEffect(Transform targetTransform)
+    private void CreateConfettiEffect(Transform targetTransform)
     {
-        GameObject confetti = Instantiate(confettiEffect, targetTransform.position, targetTransform.rotation);
-        confetti.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-        yield return new WaitForSeconds(0.8f);
-        Destroy(confetti);
-        Destroy(gameObject);
+        GameObject confetti = Instantiate(confettiEffect, confettiEffect.transform.position, confettiEffect.transform.rotation);
+        confetti.GetComponent<Confetti>().GetConffeti(targetTransform);
     }
 
 

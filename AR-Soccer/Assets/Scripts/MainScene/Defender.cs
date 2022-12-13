@@ -67,6 +67,7 @@ public class Defender : MonoBehaviour
                             PlayAttackAnim();
                             SetInactiveColor();
                             StartCoroutine(ReturnPosition());
+                            FindObjectOfType<AudioManager>().PlayAudio(AudioManager.PUNCH_SFX);
                             attacker = null;
 
                         }
