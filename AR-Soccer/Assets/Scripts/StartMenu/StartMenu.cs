@@ -8,11 +8,13 @@ public class StartMenu : MonoBehaviour
 
     public void OnPlayButtonClicked()
     {
+        FindObjectOfType<AudioManager>().PlayAudio(AudioManager.CLICK_SFX);
         sceneLoader.SwitchToMainGame();
     }
 
     public void OnExitButtonClicked()
     {
+        FindObjectOfType<AudioManager>().PlayAudio(AudioManager.CLICK_SFX);
         Debug.Log("Quit");
         Application.Quit();
     }

@@ -779,6 +779,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1015561310}
     m_Modifications:
+    - target: {fileID: 1584275045107612424, guid: 2b43b48598ba8cc41ae80563b5234c6c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 530649274}
+    - target: {fileID: 1584275045107612424, guid: 2b43b48598ba8cc41ae80563b5234c6c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnReplayButtonClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 1584275045107612424, guid: 2b43b48598ba8cc41ae80563b5234c6c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PenaltyButtonManager, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 6895058599499010060, guid: 2b43b48598ba8cc41ae80563b5234c6c, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -866,6 +878,18 @@ PrefabInstance:
     - target: {fileID: 6895058599499010061, guid: 2b43b48598ba8cc41ae80563b5234c6c, type: 3}
       propertyPath: m_Name
       value: ResultPopUpMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 7251730170164723795, guid: 2b43b48598ba8cc41ae80563b5234c6c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 530649274}
+    - target: {fileID: 7251730170164723795, guid: 2b43b48598ba8cc41ae80563b5234c6c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnMenuButtonClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 7251730170164723795, guid: 2b43b48598ba8cc41ae80563b5234c6c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PenaltyButtonManager, Assembly-CSharp
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b43b48598ba8cc41ae80563b5234c6c, type: 3}
@@ -4987,7 +5011,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1334899278}
-  confettiParticle: {fileID: 0}
+  confettiParticle: {fileID: 5352351689324964303, guid: fce817ba90c6dde4ebad0c0c3baa41bc, type: 3}
 --- !u!4 &6561345344290355346
 Transform:
   m_ObjectHideFlags: 0

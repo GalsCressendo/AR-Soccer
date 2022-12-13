@@ -13,7 +13,6 @@ public class GameManager : MonoBehaviour
     const int ATTACKER_SPAWN_COST = 2;
     const int DEFENDER_SPAWN_COST = 3;
     const float SPAWN_TIME = 0.5f;
-    const float STATE_POP_UP_TIME = 2f;
     const int TOTAL_MATCH = 5;
 
     [SerializeField] List<Camera> cameras;
@@ -36,6 +35,7 @@ public class GameManager : MonoBehaviour
 
     public StatePopUp statePopUp;
     public bool gameIsActive;
+    public bool mainGameOver = false;
 
     int matchCount = 1;
     [SerializeField] ScoreManager scoreManager;
@@ -209,6 +209,7 @@ public class GameManager : MonoBehaviour
 
     private void EnableStatePopUp()
     {
+        FindObjectOfType<AudioManager>().PlayAudio(AudioManager.HORN_SFX);
         statePopUp.transform.gameObject.SetActive(true);
 
         //Destroy ball if exist
@@ -230,7 +231,7 @@ public class GameManager : MonoBehaviour
         energyBarEnemy.ResetEnergyBar();
         energyBarPlayer.ResetEnergyBar();
 
-        Invoke("DisableStatePopUp", STATE_POP_UP_TIME);
+        Invoke("DisableStatePopUp", FindObjectOfType<AudioManager>().GetAudioDuration(AudioManager.HORN_SFX));
     }
 
     private void DisableStatePopUp()
@@ -248,6 +249,7 @@ public class GameManager : MonoBehaviour
     {
         matchCount += 1;
         gameIsActive = false;
+        timer.isTicking = false;
 
         if (matchCount <= TOTAL_MATCH)
         {
@@ -371,6 +373,7 @@ public class GameManager : MonoBehaviour
 
         bool playerWin = scoreManager.isPlayerWinner();
         resultPopUp.transform.gameObject.SetActive(true);
+        mainGameOver = true;
 
         if (!playerWin)
         {
@@ -383,6 +386,7 @@ public class GameManager : MonoBehaviour
             else
             {
                 //player is lose, the enemy win
+                FindObjectOfType<AudioManager>().PlayAudio(AudioManager.APPLAUSE_SFX);
                 resultPopUp.SetEnemyWinner();
                 Instantiate(firework, firework.transform.position, firework.transform.rotation);
 
@@ -391,6 +395,7 @@ public class GameManager : MonoBehaviour
         }
         else //player is winner
         {
+            FindObjectOfType<AudioManager>().PlayAudio(AudioManager.APPLAUSE_SFX);
             resultPopUp.SetPlayerWinner();
             Instantiate(firework, firework.transform.position, firework.transform.rotation);
         }

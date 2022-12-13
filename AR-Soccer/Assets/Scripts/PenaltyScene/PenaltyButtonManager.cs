@@ -10,23 +10,31 @@ public class PenaltyButtonManager : MonoBehaviour
 
     public void OnPauseButtonClicked()
     {
-        mazeGameManager.PauseGame();
-        popUpMenu.SetActive(true);
+        if (mazeGameManager.gameIsActive)
+        {
+            FindObjectOfType<AudioManager>().PlayAudio(AudioManager.CLICK_SFX);
+            mazeGameManager.PauseGame();
+            popUpMenu.SetActive(true);
+        }
+
     }
 
     public void OnExitButtonClick()
     {
+        FindObjectOfType<AudioManager>().PlayAudio(AudioManager.CLICK_SFX);
         mazeGameManager.gameIsActive = true;
         popUpMenu.SetActive(false);
     }
 
     public void OnReplayButtonClick()
     {
+        FindObjectOfType<AudioManager>().PlayAudio(AudioManager.CLICK_SFX);
         sceneLoader.SwitchToMainGame();
     }
 
     public void OnMenuButtonClick()
     {
+        FindObjectOfType<AudioManager>().PlayAudio(AudioManager.CLICK_SFX);
         sceneLoader.SwitchToStartMenuGame();
     }
 }
