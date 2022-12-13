@@ -34,6 +34,8 @@ public class Attacker : MonoBehaviour
     const string RUN_ANIM_PARAM = "isRunning";
     const string CAPTURED_ANIM_PARAM = "isCaptured";
 
+    [SerializeField] private GameObject confettiEffect;
+
     private void Awake()
     {
         goalTarget = GameObject.FindGameObjectWithTag(attributes.GOAL_TAG).transform;
@@ -154,8 +156,14 @@ public class Attacker : MonoBehaviour
             if (haveBall)
             {
                 GameObject.FindGameObjectWithTag(GAME_MANAGER_TAG).GetComponent<GameManager>().DeclareWinAttacker();
+                StartCoroutine(CreateConfettiEffect(other.transform));
+
             }
-            Destroy(gameObject);
+            else
+            {
+                Destroy(gameObject);
+            }
+
         }
     }
 
@@ -254,6 +262,15 @@ public class Attacker : MonoBehaviour
     {
         animator.SetBool(RUN_ANIM_PARAM, false);
         indicator.SetActive(false);
+    }
+
+    private IEnumerator CreateConfettiEffect(Transform targetTransform)
+    {
+        GameObject confetti = Instantiate(confettiEffect, targetTransform.position, targetTransform.rotation);
+        confetti.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        yield return new WaitForSeconds(0.8f);
+        Destroy(confetti);
+        Destroy(gameObject);
     }
 
 

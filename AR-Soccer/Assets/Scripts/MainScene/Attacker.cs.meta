@@ -3,7 +3,14 @@ guid: aebc7824958b1eb4a9962c1469a1975f
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - attributes: {instanceID: 0}
+  - surfaceRenderer: {instanceID: 0}
+  - highlight: {instanceID: 0}
+  - indicator: {instanceID: 0}
+  - unitContainer: {instanceID: 0}
+  - animator: {instanceID: 0}
+  - confettiEffect: {fileID: 7194952087870367276, guid: a56fa166c27c1b64a90204cdc43a72fd, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

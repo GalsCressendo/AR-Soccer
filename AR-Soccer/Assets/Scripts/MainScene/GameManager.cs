@@ -396,4 +396,5 @@ public class GameManager : MonoBehaviour
         sceneLoader.SwitchToPenaltyGame();
     }
 
+
 }

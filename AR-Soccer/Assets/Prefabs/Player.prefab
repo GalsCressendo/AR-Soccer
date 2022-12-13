@@ -402,6 +402,7 @@ MonoBehaviour:
   isReceiving: 0
   unitContainer: {fileID: 0}
   animator: {fileID: 1887413323404333788}
+  confettiEffect: {fileID: 7194952087870367276, guid: a56fa166c27c1b64a90204cdc43a72fd, type: 3}
 --- !u!114 &9048735700621553515
 MonoBehaviour:
   m_ObjectHideFlags: 0
