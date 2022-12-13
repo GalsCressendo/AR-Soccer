@@ -15,9 +15,10 @@ public class MazeGameManager : MonoBehaviour
     [SerializeField] Timer timer;
     [SerializeField] GameObject player;
     [SerializeField] GameObject penaltyGamePopUp;
-    public bool gameIsActive = true;
+    [SerializeField] GameObject ballSpawnParticle;
 
-    bool gameStart = false;
+    public bool gameIsActive = false;
+
     float range = 3f;
 
     private void Awake()
@@ -43,7 +44,7 @@ public class MazeGameManager : MonoBehaviour
 
     private void Update()
     {
-        if (gameStart && maze!=null)
+        if (maze!=null && gameIsActive)
         {
             if (spawnedBall == null)
             {
@@ -52,6 +53,7 @@ public class MazeGameManager : MonoBehaviour
                 {
                     spawnedBall = Instantiate(ball, point, ball.transform.rotation);
                     spawnedBall.transform.SetParent(field.transform, true);
+                    StartCoroutine(CreateSpawnBallParticle(spawnedBall.transform));
                 }
             }
         }
@@ -63,7 +65,7 @@ public class MazeGameManager : MonoBehaviour
         timer.isTicking = true;
         player.SetActive(true);
         Destroy(penaltyGamePopUp);
-        gameStart = true;
+        gameIsActive = true;
 
         int rand = Random.Range(0, mazes.Count);
         maze = Instantiate(mazes[rand], mazes[rand].transform.position, mazes[rand].transform.rotation);
@@ -73,6 +75,7 @@ public class MazeGameManager : MonoBehaviour
 
     public void DeclareEnemyWinner()
     {
+        gameIsActive = false;
         timer.isTicking = false;
         resultPopUp.transform.gameObject.SetActive(true);
         resultPopUp.SetEnemyWinner();
@@ -80,6 +83,7 @@ public class MazeGameManager : MonoBehaviour
 
     public void DeclarePlayerWinner()
     {
+        gameIsActive = false;
         timer.isTicking = false;
         resultPopUp.transform.gameObject.SetActive(true);
         resultPopUp.SetPlayerWinner();
@@ -90,6 +94,14 @@ public class MazeGameManager : MonoBehaviour
         timer.isTicking = false;
         gameIsActive = false;
 
+    }
+
+    public IEnumerator CreateSpawnBallParticle(Transform target)
+    {
+        GameObject effect = Instantiate(ballSpawnParticle, target.position, target.rotation);
+        effect.transform.localScale = new Vector3(0.02f, 0.02f, 0.02f);
+        yield return new WaitForSeconds(1f);
+        Destroy(effect);
     }
 
 }

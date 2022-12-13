@@ -1045,6 +1045,7 @@ MonoBehaviour:
   timer: {fileID: 1668604311}
   player: {fileID: 5476881110566073561}
   penaltyGamePopUp: {fileID: 450701164215368908}
+  ballSpawnParticle: {fileID: 3123075737211501182, guid: a3f72d5f213bb7d458dfc2c4369e7acf, type: 3}
   gameIsActive: 1
 --- !u!1 &1454609771
 GameObject:
@@ -4985,6 +4986,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1334899278}
+  confettiParticle: {fileID: 0}
 --- !u!4 &6561345344290355346
 Transform:
   m_ObjectHideFlags: 0
