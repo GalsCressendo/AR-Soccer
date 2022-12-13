@@ -7,6 +7,9 @@ public class AudioManager : MonoBehaviour
     public List<Sound> sounds;
     public static AudioManager instance;
 
+    public const string BGM = "BGM";
+    public const string CLICK_SFX = "ButtonClick";
+
     private void Awake()
     {
         if(instance == null)
@@ -44,6 +47,6 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
-        PlayAudio("BGM");
+        PlayAudio(BGM);
     }
 }
