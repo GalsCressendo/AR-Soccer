@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,17 +18,6 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
-        if(instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        DontDestroyOnLoad(gameObject);
 
         foreach(Sound s in sounds)
         {
@@ -53,6 +43,7 @@ public class AudioManager : MonoBehaviour
         }
 
         sound.source.Play();
+
     }
 
     public float GetAudioDuration(string name)
