@@ -12,6 +12,7 @@ public class PlayerMazeController : MonoBehaviour
     Transform ballTarget = null;
     Animator animator;
     [SerializeField]MazeGameManager gameManager;
+    [SerializeField] GameObject confettiParticle;
 
 
     private void Awake()

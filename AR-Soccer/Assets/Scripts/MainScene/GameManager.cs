@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject enemyPrefab;
     [SerializeField] GameObject ballPrefab;
     [SerializeField] GameObject spawnParticle;
+    [SerializeField] GameObject firework;
 
     [SerializeField] BoxCollider playerAreaCollider;
     [SerializeField] BoxCollider enemyAreaCollider;
@@ -383,6 +384,7 @@ public class GameManager : MonoBehaviour
             {
                 //player is lose, the enemy win
                 resultPopUp.SetEnemyWinner();
+                Instantiate(firework, firework.transform.position, firework.transform.rotation);
 
             }
 
@@ -390,6 +392,7 @@ public class GameManager : MonoBehaviour
         else //player is winner
         {
             resultPopUp.SetPlayerWinner();
+            Instantiate(firework, firework.transform.position, firework.transform.rotation);
         }
 
     }
