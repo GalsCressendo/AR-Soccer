@@ -1046,6 +1046,7 @@ MonoBehaviour:
   player: {fileID: 5476881110566073561}
   penaltyGamePopUp: {fileID: 450701164215368908}
   ballSpawnParticle: {fileID: 3123075737211501182, guid: a3f72d5f213bb7d458dfc2c4369e7acf, type: 3}
+  fireWork: {fileID: 7626672789560374309, guid: a46f1058120bed74b86442cce5be8be7, type: 3}
   gameIsActive: 1
 --- !u!1 &1454609771
 GameObject:

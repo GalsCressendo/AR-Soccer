@@ -16,6 +16,7 @@ public class MazeGameManager : MonoBehaviour
     [SerializeField] GameObject player;
     [SerializeField] GameObject penaltyGamePopUp;
     [SerializeField] GameObject ballSpawnParticle;
+    [SerializeField] GameObject fireWork;
 
     public bool gameIsActive = false;
 
@@ -79,6 +80,7 @@ public class MazeGameManager : MonoBehaviour
         timer.isTicking = false;
         resultPopUp.transform.gameObject.SetActive(true);
         resultPopUp.SetEnemyWinner();
+        Instantiate(fireWork, fireWork.transform.position, fireWork.transform.rotation);
     }
 
     public void DeclarePlayerWinner()
@@ -87,6 +89,7 @@ public class MazeGameManager : MonoBehaviour
         timer.isTicking = false;
         resultPopUp.transform.gameObject.SetActive(true);
         resultPopUp.SetPlayerWinner();
+        Instantiate(fireWork, fireWork.transform.position, fireWork.transform.rotation);
     }
 
     public void PauseGame()
