@@ -9,6 +9,9 @@ public class AudioManager : MonoBehaviour
 
     public const string BGM = "BGM";
     public const string CLICK_SFX = "ButtonClick";
+    public const string BALL_KICK_SFX = "BallKick";
+    public const string APPLAUSE_SFX = "Applause";
+    public const string HORN_SFX = "Horn";
 
     private void Awake()
     {
