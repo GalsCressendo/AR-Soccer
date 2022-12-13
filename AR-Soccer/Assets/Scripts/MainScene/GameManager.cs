@@ -81,7 +81,6 @@ public class GameManager : MonoBehaviour
                 {
                     if (hit.transform.tag == PLAYER_AREA_TAG)
                     {
-                        Debug.Log("[UNITY] CLICKED PLAYER AREA");
                         if(state == GameState.PLAYER_ATTACK_STATE)
                         {
                             if(energyBarPlayer.activePoints >= ATTACKER_SPAWN_COST)
@@ -105,7 +104,6 @@ public class GameManager : MonoBehaviour
                     }
                     else if (hit.transform.tag == ENEMY_AREA_TAG)
                     {
-                        Debug.Log("[UNITY] CLICKED ENEMY AREA");
                         if (state == GameState.PLAYER_DEFENSE_STATE)
                         {
                             if(energyBarEnemy.activePoints >= ATTACKER_SPAWN_COST)
