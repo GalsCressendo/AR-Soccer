@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
 
     public StatePopUp statePopUp;
     public bool gameIsActive;
+    public bool mainGameOver = false;
 
     int matchCount = 1;
     [SerializeField] ScoreManager scoreManager;
@@ -372,6 +373,7 @@ public class GameManager : MonoBehaviour
 
         bool playerWin = scoreManager.isPlayerWinner();
         resultPopUp.transform.gameObject.SetActive(true);
+        mainGameOver = true;
 
         if (!playerWin)
         {

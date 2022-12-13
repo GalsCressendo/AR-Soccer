@@ -24,7 +24,8 @@ public class MazeGameManager : MonoBehaviour
 
     private void Awake()
     {
-        Invoke("InitializeGame", 0.5f);
+        FindObjectOfType<AudioManager>().PlayAudio(AudioManager.HORN_SFX);
+        Invoke("InitializeGame", FindObjectOfType<AudioManager>().GetAudioDuration(AudioManager.HORN_SFX));
     }
 
     bool RandomPoint(Vector3 center, float range, out Vector3 result)
@@ -81,6 +82,7 @@ public class MazeGameManager : MonoBehaviour
         resultPopUp.transform.gameObject.SetActive(true);
         resultPopUp.SetEnemyWinner();
         Instantiate(fireWork, fireWork.transform.position, fireWork.transform.rotation);
+        FindObjectOfType<AudioManager>().PlayAudio(AudioManager.APPLAUSE_SFX);
     }
 
     public void DeclarePlayerWinner()
@@ -90,6 +92,7 @@ public class MazeGameManager : MonoBehaviour
         resultPopUp.transform.gameObject.SetActive(true);
         resultPopUp.SetPlayerWinner();
         Instantiate(fireWork, fireWork.transform.position, fireWork.transform.rotation);
+        FindObjectOfType<AudioManager>().PlayAudio(AudioManager.APPLAUSE_SFX);
     }
 
     public void PauseGame()

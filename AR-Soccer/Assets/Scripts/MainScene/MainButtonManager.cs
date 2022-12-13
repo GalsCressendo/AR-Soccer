@@ -35,11 +35,15 @@ public class MainButtonManager : MonoBehaviour
 
     public void OnPauseButtonClick()
     {
-        FindObjectOfType<AudioManager>().PlayAudio(AudioManager.CLICK_SFX);
-        timer.isTicking = false;
-        popUpMenu.SetActive(true);
-        gameManager.gameIsActive = false;
-        energyBarRed.StopEnergyBar();
-        energyBarBlue.StopEnergyBar();
+        if (!gameManager.mainGameOver)
+        {
+            FindObjectOfType<AudioManager>().PlayAudio(AudioManager.CLICK_SFX);
+            timer.isTicking = false;
+            popUpMenu.SetActive(true);
+            gameManager.gameIsActive = false;
+            energyBarRed.StopEnergyBar();
+            energyBarBlue.StopEnergyBar();
+        }
+
     }
 }

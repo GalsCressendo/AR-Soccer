@@ -54,9 +54,17 @@ public class PlayerMazeController : MonoBehaviour
     {
         if(other.tag == GOAL_TARGET_TAG)
         {
+            FindObjectOfType<AudioManager>().PlayAudio(AudioManager.GOAL_SFX);
             gameManager.GetComponent<MazeGameManager>().DeclarePlayerWinner();
+            SpawnConfetti();
             Destroy(gameObject);
         }
+    }
+
+    private void SpawnConfetti()
+    {
+        GameObject confetti = Instantiate(confettiParticle, confettiParticle.transform.position, confettiParticle.transform.rotation);
+        confetti.GetComponent<Confetti>().GetConffeti(GameObject.FindGameObjectWithTag(GOAL_TARGET_TAG).transform);
     }
 
 }
