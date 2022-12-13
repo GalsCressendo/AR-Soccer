@@ -248,6 +248,7 @@ public class GameManager : MonoBehaviour
     {
         matchCount += 1;
         gameIsActive = false;
+        timer.isTicking = false;
 
         if (matchCount <= TOTAL_MATCH)
         {
