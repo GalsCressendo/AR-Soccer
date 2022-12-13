@@ -850,6 +850,7 @@ MonoBehaviour:
   enemyContainer: {fileID: 1735336845}
   enemyPrefab: {fileID: 6316473054127465553, guid: 392275696d4a5e94a9fc909d93481ce9, type: 3}
   ballPrefab: {fileID: 3028943480105391113, guid: 983135bf9cd249e469b9c1c2a9b10542, type: 3}
+  spawnParticle: {fileID: 3123075737211501182, guid: a3f72d5f213bb7d458dfc2c4369e7acf, type: 3}
   playerAreaCollider: {fileID: 1215626659}
   enemyAreaCollider: {fileID: 1059577947}
   timer: {fileID: 1617998501}

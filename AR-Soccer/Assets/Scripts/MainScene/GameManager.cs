@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject enemyContainer;
     [SerializeField] GameObject enemyPrefab;
     [SerializeField] GameObject ballPrefab;
+    [SerializeField] GameObject spawnParticle;
 
     [SerializeField] BoxCollider playerAreaCollider;
     [SerializeField] BoxCollider enemyAreaCollider;
@@ -309,6 +310,7 @@ public class GameManager : MonoBehaviour
         spawnedObject.transform.SetParent(playerContainer.transform, true);
         playerContainer.GetComponent<UnitContainer>().units.Add(spawnedObject);
         spawnedObject.GetComponent<Attacker>().unitContainer = playerContainer.GetComponent<UnitContainer>();
+        StartCoroutine(CreateSpawnParticle(spawnedObject.transform));
 
         return spawnedObject;
     }
@@ -320,6 +322,7 @@ public class GameManager : MonoBehaviour
         spawnedObject.transform.SetParent(enemyContainer.transform, true);
         enemyContainer.GetComponent<UnitContainer>().units.Add(spawnedObject);
         spawnedObject.GetComponent<Attacker>().unitContainer = enemyContainer.GetComponent<UnitContainer>();
+        StartCoroutine(CreateSpawnParticle(spawnedObject.transform));
 
         return spawnedObject;
     }
@@ -396,5 +399,11 @@ public class GameManager : MonoBehaviour
         sceneLoader.SwitchToPenaltyGame();
     }
 
-
+    private IEnumerator CreateSpawnParticle(Transform targetTransform)
+    {
+        GameObject effect = Instantiate(spawnParticle, targetTransform.position, targetTransform.rotation);
+        effect.transform.localScale = new Vector3(0.02f, 0.02f, 0.02f);
+        yield return new WaitForSeconds(0.5f);
+        Destroy(effect);
+    }
 }
