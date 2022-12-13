@@ -9,11 +9,11 @@ public class AR_Toggle : MonoBehaviour, IPointerClickHandler
     public GameObject AR;
     public AR_ObjectManager arObjectManager;
     public GameObject mainCamera;
-
-    public GameObject fieldGameObject;
     Vector3 fieldPosition = new Vector3(0, 0, 1f);
     Quaternion fieldRotation = Quaternion.Euler(new Vector3(90, 0, 0));
     Vector3 fieldScale = Vector3.one;
+
+    [SerializeField] GameManager gameManager;
 
 
     void Start()
@@ -31,13 +31,18 @@ public class AR_Toggle : MonoBehaviour, IPointerClickHandler
             handleImage.color = Color.blue;
             AR.SetActive(true);
             mainCamera.SetActive(false);
-            
 
-            if (fieldGameObject != null)
+            if (arObjectManager.fieldIsPlaced)
             {
-                fieldGameObject.transform.SetPositionAndRotation(arObjectManager.arPosition, arObjectManager.arRotation);
-                fieldGameObject.transform.localScale = arObjectManager.arScale;
+                arObjectManager.fieldGameObject.transform.SetPositionAndRotation(arObjectManager.arPosition, arObjectManager.arRotation);
+                arObjectManager.fieldGameObject.transform.localScale = arObjectManager.arScale;
             }
+            else
+            {
+                arObjectManager.fieldGameObject.SetActive(false);
+            }
+
+            Debug.Log("[UNITY] offScale:" + arObjectManager.fieldGameObject.transform.localScale);
 
 
         }
@@ -48,17 +53,20 @@ public class AR_Toggle : MonoBehaviour, IPointerClickHandler
             handleImage.color = Color.red;
             AR.SetActive(false);
             mainCamera.SetActive(true);
+            gameManager.gameIsActive = true;
 
-            
             if(arObjectManager.arPosition == Vector3.zero || arObjectManager.arRotation == Quaternion.Euler(Vector3.zero) || arObjectManager.arScale == Vector3.zero)
             {
-                arObjectManager.arPosition = arObjectManager.spawnObject.transform.position;
-                arObjectManager.arRotation = arObjectManager.spawnObject.transform.rotation;
-                arObjectManager.arScale = arObjectManager.spawnObject.transform.localScale;
+                arObjectManager.arPosition = arObjectManager.fieldGameObject.transform.position;
+                arObjectManager.arRotation = arObjectManager.fieldGameObject.transform.rotation;
+                arObjectManager.arScale = arObjectManager.fieldGameObject.transform.localScale;
             }
 
-            fieldGameObject.transform.SetPositionAndRotation(fieldPosition, fieldRotation);
-            fieldGameObject.transform.localScale = fieldScale;
+            arObjectManager.fieldGameObject.transform.SetPositionAndRotation(fieldPosition, fieldRotation);
+            arObjectManager.fieldGameObject.transform.localScale = fieldScale;
+            arObjectManager.fieldGameObject.SetActive(true);
+
+            Debug.Log("[UNITY] onScale:" + arObjectManager.fieldGameObject.transform.localScale);
 
         }
 

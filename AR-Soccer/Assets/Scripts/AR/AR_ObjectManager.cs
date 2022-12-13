@@ -6,13 +6,14 @@ using UnityEngine.XR.ARSubsystems;
 [RequireComponent(typeof(ARRaycastManager))]
 public class AR_ObjectManager : MonoBehaviour
 {
-    public GameObject objectToPlace;
-    public GameObject spawnObject;
+    public GameObject fieldGameObject;
     ARRaycastManager arRaycastManager;
     ARPlaneManager arPlaneManager;
     Vector2 touchPosition;
     static List<ARRaycastHit> hits = new List<ARRaycastHit>();
     public AR_Toggle arToggle;
+    public bool fieldIsPlaced;
+    [SerializeField] GameManager gameManager;
 
     //PinchToZoom
     Vector2 firstTouch;
@@ -35,30 +36,31 @@ public class AR_ObjectManager : MonoBehaviour
 
     private void Update()
     {
-        if (spawnObject == null && gameObject.activeInHierarchy)
+        if (!fieldIsPlaced && gameObject.activeInHierarchy)
         {
             SetPlaneTrackables(true);
-        }
-        else
-        {
-            SetPlaneTrackables(false);
+            gameManager.GamePaused();
         }
 
-        if (Input.touchCount > 0 && spawnObject == null)
+        if (Input.touchCount > 0 && !fieldIsPlaced)
         {
             touchPosition = Input.GetTouch(0).position;
 
             if (arRaycastManager.Raycast(touchPosition, hits, TrackableType.PlaneWithinPolygon))
             {
                 var hitPose = hits[0].pose;
-                spawnObject = Instantiate(objectToPlace, hitPose.position, objectToPlace.transform.rotation);
-                arToggle.fieldGameObject = spawnObject;
+                fieldGameObject.transform.position = hitPose.position;
+                fieldGameObject.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+                fieldGameObject.SetActive(true);
+                SetPlaneTrackables(false);
+                gameManager.GameActive();
+                fieldIsPlaced = true;
             }
         }
 
 
         //Pinch to zoom
-        if (Input.touchCount == 2 && spawnObject != null)
+        if (Input.touchCount == 2 && fieldIsPlaced)
         {
             firstTouch = Input.GetTouch(0).position;
             secondTouch = Input.GetTouch(1).position;
@@ -72,8 +74,8 @@ public class AR_ObjectManager : MonoBehaviour
 
             if (distanceCurrent != distancePrevious)
             {
-                Vector3 scaleValue = spawnObject.transform.localScale * (distanceCurrent / distancePrevious);
-                spawnObject.transform.localScale = scaleValue;
+                Vector3 scaleValue = fieldGameObject.transform.localScale * (distanceCurrent / distancePrevious);
+                fieldGameObject.transform.localScale = scaleValue;
                 distancePrevious = distanceCurrent;
             }
         }
@@ -83,10 +85,10 @@ public class AR_ObjectManager : MonoBehaviour
         }
 
         //Detect touch on field
-        if (Input.touchCount == 1 && spawnObject != null && Input.GetTouch(0).phase == TouchPhase.Moved && spawnObject != null)
+        if (Input.touchCount == 1 && fieldGameObject != null && Input.GetTouch(0).phase == TouchPhase.Moved && fieldIsPlaced)
         {
             Touch touch = Input.GetTouch(0);
-            spawnObject.transform.Rotate(new Vector3(0f, 0f, touch.deltaPosition.x));
+            fieldGameObject.transform.Rotate(new Vector3(0f, 0f, touch.deltaPosition.x));
         }
     }
 
