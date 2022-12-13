@@ -266,6 +266,7 @@ public class Attacker : MonoBehaviour
     private void CreateConfettiEffect(Transform targetTransform)
     {
         GameObject confetti = Instantiate(confettiEffect, confettiEffect.transform.position, confettiEffect.transform.rotation);
+        confetti.transform.localScale = FindObjectOfType<GameManager>().GetCurrentFieldRatioScale(confetti.transform.localScale);
         confetti.GetComponent<Confetti>().GetConffeti(targetTransform);
     }
 

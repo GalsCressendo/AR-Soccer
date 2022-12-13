@@ -22,8 +22,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject enemyContainer;
     [SerializeField] GameObject enemyPrefab;
     [SerializeField] GameObject ballPrefab;
+    [SerializeField] GameObject ballSpawnedParent;
     [SerializeField] GameObject spawnParticle;
     [SerializeField] GameObject firework;
+    [SerializeField] GameObject field;
 
     [SerializeField] BoxCollider playerAreaCollider;
     [SerializeField] BoxCollider enemyAreaCollider;
@@ -102,8 +104,7 @@ public class GameManager : MonoBehaviour
                     }
                     else if (hit.transform.tag == ENEMY_AREA_TAG)
                     {
-
-                        if(state == GameState.PLAYER_DEFENSE_STATE)
+                        if (state == GameState.PLAYER_DEFENSE_STATE)
                         {
                             if(energyBarEnemy.activePoints >= ATTACKER_SPAWN_COST)
                             {
@@ -201,9 +202,10 @@ public class GameManager : MonoBehaviour
         areaSize.z = areaTransform.localScale.z * areaCollider.size.z;
 
         Vector3 randomPosition = new Vector3(Random.Range(-areaSize.x / 2, areaSize.x / 2), 0f, Random.Range(-areaSize.z / 2, areaSize.z / 2));
-        Vector3 spawnPosition = new Vector3(center.x + randomPosition.x, 0.2f, center.z + randomPosition.z);
+        Vector3 spawnPosition = new Vector3(center.x + randomPosition.x, center.y + randomPosition.y, -0.3f);
 
         GameObject ball = Instantiate(ballPrefab, spawnPosition, ballPrefab.transform.rotation);
+        ball.transform.SetParent(ballSpawnedParent.transform, false);
 
     }
 
@@ -248,8 +250,7 @@ public class GameManager : MonoBehaviour
     public void SwitchGameState()
     {
         matchCount += 1;
-        gameIsActive = false;
-        timer.isTicking = false;
+        GamePaused();
 
         if (matchCount <= TOTAL_MATCH)
         {
@@ -311,6 +312,7 @@ public class GameManager : MonoBehaviour
         GameObject spawnedObject;
         spawnedObject = Instantiate(playerPrefab, hit.point, playerPrefab.transform.rotation);
         spawnedObject.transform.SetParent(playerContainer.transform, true);
+        spawnedObject.transform.localScale = GetCurrentFieldRatioScale(spawnedObject.transform.localScale);
         playerContainer.GetComponent<UnitContainer>().units.Add(spawnedObject);
         spawnedObject.GetComponent<Attacker>().unitContainer = playerContainer.GetComponent<UnitContainer>();
         StartCoroutine(CreateSpawnParticle(spawnedObject.transform));
@@ -323,6 +325,7 @@ public class GameManager : MonoBehaviour
         GameObject spawnedObject;
         spawnedObject = Instantiate(enemyPrefab, hit.point, enemyPrefab.transform.rotation);
         spawnedObject.transform.SetParent(enemyContainer.transform, true);
+        spawnedObject.transform.localScale = GetCurrentFieldRatioScale(spawnedObject.transform.localScale);
         enemyContainer.GetComponent<UnitContainer>().units.Add(spawnedObject);
         spawnedObject.GetComponent<Attacker>().unitContainer = enemyContainer.GetComponent<UnitContainer>();
         StartCoroutine(CreateSpawnParticle(spawnedObject.transform));
@@ -410,8 +413,35 @@ public class GameManager : MonoBehaviour
     private IEnumerator CreateSpawnParticle(Transform targetTransform)
     {
         GameObject effect = Instantiate(spawnParticle, targetTransform.position, targetTransform.rotation);
-        effect.transform.localScale = new Vector3(0.02f, 0.02f, 0.02f);
+        Vector3 scale = new Vector3(0.02f, 0.02f, 0.02f);
+        effect.transform.localScale = GetCurrentFieldRatioScale(scale);
         yield return new WaitForSeconds(0.5f);
         Destroy(effect);
+    }
+
+    public void GameActive()
+    {
+        gameIsActive = true;
+        energyBarEnemy.StartEnergyBar();
+        energyBarPlayer.StartEnergyBar();
+        timer.isTicking = false;
+    }
+
+    public void GamePaused()
+    {
+        gameIsActive = false;
+        energyBarEnemy.StopEnergyBar();
+        energyBarPlayer.StopEnergyBar();
+        timer.isTicking = false;
+    }
+
+    public Vector3 GetCurrentFieldRatioScale(Vector3 target)
+    {
+        float ratioX = target.x * field.transform.localScale.x;
+        float ratioY = target.y * field.transform.localScale.y;
+        float ratioZ = target.z * field.transform.localScale.z;
+
+        Vector3 newScale = new Vector3(ratioX, ratioY, ratioZ);
+        return newScale;
     }
 }
