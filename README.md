@@ -3,4 +3,4 @@ This is a idle Soccer Game With AR functionalities. This game is created with Un
 
 ## How to Test
 - Android: Download and Directly installing the game [.apk file](AR-Soccer/Build/AR-Soccer.apk) to your android device
-- Unity : Clone The project to your local computer and open it with Unity Engine.
+- Unity : Clone The project to your local computer and open it with Unity Engine. Make sure you start it with [startScene](AR-Soccer/Assets/Scenes/StartMenu.unity) scene.
