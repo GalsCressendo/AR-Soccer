@@ -217,12 +217,14 @@ public class Attacker : MonoBehaviour
     {
         SetActiveColor();
         isCaptured = false;
+        isActive = true;
     }
 
     public void ReactiveAfterSpawn()
     {
         SetActiveColor();
         isSpawned = false;
+        isActive = true;
     }
 
     private void SetActiveColor()
