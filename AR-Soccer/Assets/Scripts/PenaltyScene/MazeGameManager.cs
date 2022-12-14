@@ -22,7 +22,7 @@ public class MazeGameManager : MonoBehaviour
 
     float range = 3f;
 
-    private void Awake()
+    private void Start()
     {
         FindObjectOfType<AudioManager>().PlayAudio(AudioManager.HORN_SFX);
         Invoke("InitializeGame", FindObjectOfType<AudioManager>().GetAudioDuration(AudioManager.HORN_SFX));
