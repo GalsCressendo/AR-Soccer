@@ -22,7 +22,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject enemyContainer;
     [SerializeField] GameObject enemyPrefab;
     [SerializeField] GameObject ballPrefab;
-    [SerializeField] GameObject ballSpawnedParent;
     [SerializeField] GameObject spawnParticle;
     [SerializeField] GameObject firework;
     [SerializeField] GameObject field;
@@ -202,10 +201,10 @@ public class GameManager : MonoBehaviour
         areaSize.z = areaTransform.localScale.z * areaCollider.size.z;
 
         Vector3 randomPosition = new Vector3(Random.Range(-areaSize.x / 2, areaSize.x / 2), 0f, Random.Range(-areaSize.z / 2, areaSize.z / 2));
-        Vector3 spawnPosition = new Vector3(center.x + randomPosition.x, center.y + randomPosition.y, -0.3f);
+        Vector3 spawnPosition = new Vector3(center.x + randomPosition.x, center.y + randomPosition.y, 0.4f);
 
         GameObject ball = Instantiate(ballPrefab, spawnPosition, ballPrefab.transform.rotation);
-        ball.transform.SetParent(ballSpawnedParent.transform, false);
+        ball.transform.SetParent(areaCollider.transform, false);
 
     }
 

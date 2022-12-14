@@ -23,10 +23,11 @@ public class Attacker : MonoBehaviour
     public GameObject highlight;
     [SerializeField] GameObject indicator;
 
+    public bool isActive;
     public bool haveBall;
     public bool isCaptured;
-    bool isSpawned = false;
-    public bool isReceiving = false;
+    bool isSpawned;
+    public bool isReceiving;
 
     public UnitContainer unitContainer;
 
@@ -110,6 +111,7 @@ public class Attacker : MonoBehaviour
                 //If the attacker carry a ball
                 if (haveBall)
                 {
+                    isActive = true;
                     highlight.SetActive(true);
                     MoveTowardsTarget(goalTarget, CARRY_BALL_SPEED);
                     SetActiveColor();
@@ -169,6 +171,7 @@ public class Attacker : MonoBehaviour
     {
         if (haveBall)
         {
+            isActive = false;
             PlayCapturedAnim();
             isCaptured = true;
             highlight.SetActive(false);
@@ -178,11 +181,15 @@ public class Attacker : MonoBehaviour
             Transform nearestTransform = null;
             foreach (Transform t in unitContainer.GetAllUnitTransform(gameObject.transform))
             {
-                if (Vector3.Distance(transform.position, t.position) < nearestDistance)
+                if (t.GetComponent<Attacker>().isActive)
                 {
-                    nearestDistance = Vector3.Distance(transform.position, t.position);
-                    nearestTransform = t;
+                    if (Vector3.Distance(transform.position, t.position) < nearestDistance)
+                    {
+                        nearestDistance = Vector3.Distance(transform.position, t.position);
+                        nearestTransform = t;
+                    }
                 }
+
             }
 
             ballTarget = GameObject.FindGameObjectWithTag(BALL_TAG).GetComponent<Transform>();
