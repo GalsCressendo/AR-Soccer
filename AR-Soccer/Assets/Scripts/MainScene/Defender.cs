@@ -62,14 +62,16 @@ public class Defender : MonoBehaviour
                         if (Vector3.Distance(transform.position, attacker.position) < 0.5f)
                         {
                             attacker.GetComponent<Attacker>().PassBall();
-                            isActive = false;
-                            detection.SetActive(false);
                             PlayAttackAnim();
-                            SetInactiveColor();
-                            StartCoroutine(ReturnPosition());
                             FindObjectOfType<AudioManager>().PlayAudio(AudioManager.PUNCH_SFX);
-                            attacker = null;
+                            SetReturnState();
 
+                        }
+                        //if attacker get inactive when being chased, ex: when another defender already caught it
+                        else if (!attacker.GetComponent<Attacker>().isActive)
+                        {
+                            RunToIdle();
+                            SetReturnState();
                         }
                     }
 
@@ -128,6 +130,15 @@ public class Defender : MonoBehaviour
         attacker = null;
         RunToIdle();
         transform.rotation = initialRotation;
+    }
+
+    public void SetReturnState()
+    {
+        isActive = false;
+        detection.SetActive(false);
+        SetInactiveColor();
+        attacker = null;
+        StartCoroutine(ReturnPosition());
     }
 
     public void ReactiveAfterSpawn()
