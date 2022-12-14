@@ -1076,7 +1076,7 @@ MonoBehaviour:
   firework: {fileID: 7626672789560374309, guid: a46f1058120bed74b86442cce5be8be7, type: 3}
   field: {fileID: 108135649}
   playerAreaCollider: {fileID: 1215626659}
-  enemyAreaCollider: {fileID: 0}
+  enemyAreaCollider: {fileID: 2052969922}
   timer: {fileID: 1617998501}
   energyBarPlayer: {fileID: 1206879413}
   energyBarEnemy: {fileID: 825100046}

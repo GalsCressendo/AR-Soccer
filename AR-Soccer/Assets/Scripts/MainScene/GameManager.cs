@@ -229,9 +229,6 @@ public class GameManager : MonoBehaviour
             statePopUp.ShowEnemyAttack();
         }
 
-        energyBarEnemy.ResetEnergyBar();
-        energyBarPlayer.ResetEnergyBar();
-
         Invoke("DisableStatePopUp", FindObjectOfType<AudioManager>().GetAudioDuration(AudioManager.HORN_SFX));
     }
 
@@ -240,7 +237,7 @@ public class GameManager : MonoBehaviour
         gameIsActive = true;
         SpawnBall();
         statePopUp.transform.gameObject.SetActive(false);
-        timer.ResetTime();
+        timer.isTicking = true;
 
         energyBarEnemy.StartEnergyBar();
         energyBarPlayer.StartEnergyBar();
