@@ -70,6 +70,7 @@ public class Defender : MonoBehaviour
                         //if attacker get inactive when being chased, ex: when another defender already caught it
                         else if (!attacker.GetComponent<Attacker>().isActive)
                         {
+                            RunToIdle();
                             SetReturnState();
                         }
                     }
@@ -136,8 +137,8 @@ public class Defender : MonoBehaviour
         isActive = false;
         detection.SetActive(false);
         SetInactiveColor();
-        StartCoroutine(ReturnPosition());
         attacker = null;
+        StartCoroutine(ReturnPosition());
     }
 
     public void ReactiveAfterSpawn()
