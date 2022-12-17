@@ -26,7 +26,7 @@ public class AR_ObjectManager : MonoBehaviour
     public Vector3 arPosition;
     public Quaternion arRotation;
     public Vector3 arScale;
-    
+
 
     private void Awake()
     {
@@ -94,24 +94,12 @@ public class AR_ObjectManager : MonoBehaviour
 
     void SetPlaneTrackables(bool state)
     {
-        if (state)
+        foreach (var plane in arPlaneManager.trackables)
         {
-            foreach (var plane in arPlaneManager.trackables)
-            {
-                plane.gameObject.SetActive(state);
-            }
-
-            arPlaneManager.enabled = state;
+            plane.gameObject.SetActive(state);
         }
-        else
-        {
-            foreach (var plane in arPlaneManager.trackables)
-            {
-                plane.gameObject.SetActive(false);
-            }
 
-            arPlaneManager.enabled = false;
-        }
+        arPlaneManager.enabled = state;
     }
 
 
