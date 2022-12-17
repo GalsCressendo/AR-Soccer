@@ -63,7 +63,7 @@ public class Attacker : MonoBehaviour
                         return;
                     }
 
-                    MoveTowardsTarget(ballTarget.position, CHASE_BALL_SPEED);
+                    MoveTowardsTarget(new Vector3(ballTarget.position.x, transform.position.y, ballTarget.position.z), CHASE_BALL_SPEED);
 
                     if (Vector3.Distance(transform.position, ballTarget.position) < 0.3f)
                     {
@@ -88,7 +88,7 @@ public class Attacker : MonoBehaviour
                     }
 
                     Vector3 fencePosition = GameObject.FindGameObjectWithTag(attributes.FENCE_TAG).transform.position;
-                    MoveTowardsTarget(new Vector3(transform.position.x, transform.position.y, fencePosition.y), CARRY_BALL_SPEED);
+                    MoveTowardsTarget(new Vector3(transform.position.x, transform.position.y, fencePosition.z), CARRY_BALL_SPEED);
                     PlayRunningAnim();
 
                 }
@@ -105,7 +105,7 @@ public class Attacker : MonoBehaviour
                 {
                     isActive = true;
                     highlight.SetActive(true);
-                    MoveTowardsTarget(goalTarget.position, CARRY_BALL_SPEED);
+                    MoveTowardsTarget(new Vector3(goalTarget.position.x, transform.position.y, goalTarget.position.z), CARRY_BALL_SPEED);
                     SetActiveColor();
                 }
 
