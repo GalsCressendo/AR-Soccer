@@ -9,9 +9,6 @@ public class AR_Toggle : MonoBehaviour, IPointerClickHandler
     public GameObject AR;
     public AR_ObjectManager arObjectManager;
     public GameObject mainCamera;
-    Vector3 fieldPosition = new Vector3(0, 0, 1f);
-    Quaternion fieldRotation = Quaternion.Euler(new Vector3(90, 0, 0));
-    Vector3 fieldScale = Vector3.one;
 
     [SerializeField] GameManager gameManager;
 
@@ -23,7 +20,6 @@ public class AR_Toggle : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-
         if (slider.value == 0) //off state
         {
             //turn it on
@@ -42,6 +38,7 @@ public class AR_Toggle : MonoBehaviour, IPointerClickHandler
                 arObjectManager.fieldGameObject.SetActive(false);
             }
 
+            Debug.Log("[UNITY] offPosition: " + arObjectManager.fieldGameObject.transform.localPosition);
             Debug.Log("[UNITY] offScale:" + arObjectManager.fieldGameObject.transform.localScale);
 
 
@@ -55,20 +52,20 @@ public class AR_Toggle : MonoBehaviour, IPointerClickHandler
             mainCamera.SetActive(true);
             gameManager.gameIsActive = true;
 
-            if(arObjectManager.arPosition == Vector3.zero || arObjectManager.arRotation == Quaternion.Euler(Vector3.zero) || arObjectManager.arScale == Vector3.zero)
+            if (arObjectManager.arPosition == Vector3.zero || arObjectManager.arRotation == Quaternion.Euler(Vector3.zero) || arObjectManager.arScale == Vector3.zero)
             {
                 arObjectManager.arPosition = arObjectManager.fieldGameObject.transform.position;
                 arObjectManager.arRotation = arObjectManager.fieldGameObject.transform.rotation;
                 arObjectManager.arScale = arObjectManager.fieldGameObject.transform.localScale;
             }
 
-            arObjectManager.fieldGameObject.transform.SetPositionAndRotation(fieldPosition, fieldRotation);
-            arObjectManager.fieldGameObject.transform.localScale = fieldScale;
+            arObjectManager.fieldGameObject.transform.SetPositionAndRotation(Vector3.zero, Quaternion.Euler(Vector3.zero));
+            arObjectManager.fieldGameObject.transform.localScale = Vector3.one;
             arObjectManager.fieldGameObject.SetActive(true);
 
             Debug.Log("[UNITY] onScale:" + arObjectManager.fieldGameObject.transform.localScale);
+            Debug.Log("[UNITY] onPosition: " + arObjectManager.fieldGameObject.transform.localPosition);
 
         }
-
     }
 }
