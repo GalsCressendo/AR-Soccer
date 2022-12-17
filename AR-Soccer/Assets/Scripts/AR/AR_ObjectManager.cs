@@ -88,7 +88,7 @@ public class AR_ObjectManager : MonoBehaviour
         if (Input.touchCount == 1 && fieldGameObject != null && Input.GetTouch(0).phase == TouchPhase.Moved && fieldIsPlaced)
         {
             Touch touch = Input.GetTouch(0);
-            fieldGameObject.transform.Rotate(new Vector3(0f, 0f, touch.deltaPosition.x));
+            fieldGameObject.transform.Rotate(new Vector3(0f, touch.deltaPosition.x, 0f));
         }
     }
 
