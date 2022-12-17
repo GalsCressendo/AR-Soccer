@@ -5366,7 +5366,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d023129421c5694ca75c95b7f87fcf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fieldGameObject: {fileID: 0}
+  fieldGameObject: {fileID: 186200476}
   arToggle: {fileID: 785150530}
   fieldIsPlaced: 0
   gameManager: {fileID: 329393709}
