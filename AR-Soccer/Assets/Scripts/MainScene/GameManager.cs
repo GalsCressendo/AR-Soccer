@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     const string ATTACKER_TAG = "Attacker";
     const string DEFENDER_TAG = "Defender";
     const string BALL_TAG = "Ball";
+    const string FIELD_TAG = "Field";
     const int ATTACKER_SPAWN_COST = 2;
     const int DEFENDER_SPAWN_COST = 3;
     const float SPAWN_TIME = 0.5f;
@@ -201,10 +202,10 @@ public class GameManager : MonoBehaviour
         areaSize.z = areaTransform.localScale.z * areaCollider.size.z;
 
         Vector3 randomPosition = new Vector3(Random.Range(-areaSize.x / 2, areaSize.x / 2), 0, Random.Range(-areaSize.z/2, areaSize.z/2));
-        Vector3 spawnPosition = new Vector3(center.x + randomPosition.x, -0.03f, center.z + randomPosition.z);
+        Vector3 spawnPosition = new Vector3(center.x + randomPosition.x, 0.2f, center.z + randomPosition.z);
 
         GameObject ball = Instantiate(ballPrefab, spawnPosition, ballPrefab.transform.rotation);
-        ball.transform.SetParent(areaCollider.transform, false);
+        ball.transform.SetParent(GameObject.FindGameObjectWithTag(FIELD_TAG).transform, true);
 
     }
 
