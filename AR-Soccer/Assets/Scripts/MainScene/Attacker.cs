@@ -63,7 +63,7 @@ public class Attacker : MonoBehaviour
                         return;
                     }
 
-                    MoveTowardsTarget(ballTarget, CHASE_BALL_SPEED);
+                    MoveTowardsTarget(new Vector3(ballTarget.position.x, transform.position.y, ballTarget.position.z), CHASE_BALL_SPEED);
 
                     if (Vector3.Distance(transform.position, ballTarget.position) < 0.3f)
                     {
@@ -87,16 +87,8 @@ public class Attacker : MonoBehaviour
 
                     }
 
-                    if (gameObject.transform.parent.tag == PLAYER_TAG)
-                    {
-                        transform.position += new Vector3(0, 0, CARRY_BALL_SPEED) * Time.deltaTime;
-                    }
-                    else
-                    {
-                        transform.position +=  new Vector3(0, 0, -CARRY_BALL_SPEED) * Time.deltaTime;
-                    }
-
-                    transform.rotation = Quaternion.RotateTowards(transform.rotation, initialRotation, ROTATION_SPEED * Time.deltaTime);
+                    Vector3 fencePosition = GameObject.FindGameObjectWithTag(attributes.FENCE_TAG).transform.position;
+                    MoveTowardsTarget(new Vector3(transform.position.x, transform.position.y, fencePosition.z), CARRY_BALL_SPEED);
                     PlayRunningAnim();
 
                 }
@@ -113,7 +105,7 @@ public class Attacker : MonoBehaviour
                 {
                     isActive = true;
                     highlight.SetActive(true);
-                    MoveTowardsTarget(goalTarget, CARRY_BALL_SPEED);
+                    MoveTowardsTarget(new Vector3(goalTarget.position.x, transform.position.y, goalTarget.position.z), CARRY_BALL_SPEED);
                     SetActiveColor();
                 }
 
@@ -128,13 +120,13 @@ public class Attacker : MonoBehaviour
 
     }
 
-    void MoveTowardsTarget(Transform target, float speed)
+    void MoveTowardsTarget(Vector3 target, float speed)
     {
         var step = speed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, target.position, step);
-        if (target.position != Vector3.zero)
+        transform.position = Vector3.MoveTowards(transform.position, target, step);
+        if (target != Vector3.zero)
         {
-            RotateTowardsTarget(target.position);
+            RotateTowardsTarget(target);
         }
 
         PlayRunningAnim();

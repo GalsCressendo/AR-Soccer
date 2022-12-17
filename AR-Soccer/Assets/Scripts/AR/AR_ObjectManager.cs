@@ -26,7 +26,7 @@ public class AR_ObjectManager : MonoBehaviour
     public Vector3 arPosition;
     public Quaternion arRotation;
     public Vector3 arScale;
-    
+
 
     private void Awake()
     {
@@ -88,30 +88,18 @@ public class AR_ObjectManager : MonoBehaviour
         if (Input.touchCount == 1 && fieldGameObject != null && Input.GetTouch(0).phase == TouchPhase.Moved && fieldIsPlaced)
         {
             Touch touch = Input.GetTouch(0);
-            fieldGameObject.transform.Rotate(new Vector3(0f, 0f, touch.deltaPosition.x));
+            fieldGameObject.transform.Rotate(new Vector3(0f, touch.deltaPosition.x, 0f));
         }
     }
 
     void SetPlaneTrackables(bool state)
     {
-        if (state)
+        foreach (var plane in arPlaneManager.trackables)
         {
-            foreach (var plane in arPlaneManager.trackables)
-            {
-                plane.gameObject.SetActive(state);
-            }
-
-            arPlaneManager.enabled = state;
+            plane.gameObject.SetActive(state);
         }
-        else
-        {
-            foreach (var plane in arPlaneManager.trackables)
-            {
-                plane.gameObject.SetActive(false);
-            }
 
-            arPlaneManager.enabled = false;
-        }
+        arPlaneManager.enabled = state;
     }
 
 
